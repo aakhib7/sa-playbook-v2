@@ -122,19 +122,16 @@ section{display:flex;flex-direction:column;gap:16px}
 .langs button[aria-pressed="true"] small{color:#ece4ff}
 .langs button:not([aria-pressed="true"]):hover{background:var(--accent-soft)}
 .langs button:hover{color:var(--ink)}
-.kit{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:20px 28px;align-items:start}
-@media (max-width:820px){.kit{grid-template-columns:minmax(0,1fr)}}
+.kit{display:flex;flex-direction:column;gap:16px}
 .kitl{display:flex;flex-direction:column;gap:8px}
-.reqs{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-direction:column;gap:6px;counter-reset:r}
+.reqs{list-style:none;margin:4px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+@media (max-width:640px){.reqs{grid-template-columns:minmax(0,1fr)}}
 .reqs li{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border-radius:10px;background:var(--bg);border:1px solid var(--line);font-size:14px;font-weight:500}
 .reqs .m{flex:none;font-family:var(--f-mono);font-size:11px;font-weight:700;color:#fff;background:var(--grad);padding:2px 7px;border-radius:6px;margin-top:1px}
 .reqs small{display:block;font-size:12px;font-weight:400;color:var(--muted)}
-.kitf{display:flex;flex-direction:column;gap:10px;padding:16px;border-radius:14px;background:var(--bg);border:1px solid var(--line)}
-.kitf label{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600;color:var(--muted)}
-.kitf input{font:inherit;font-size:14px;font-weight:400;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:9px 11px;min-width:0}
-.kitf input:focus{outline:2px solid var(--accent);outline-offset:0;border-color:transparent}
-.kitf .btn{margin-top:4px}
-.hint{font-size:12px;color:var(--muted)}
+.kitd{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding-top:14px;border-top:1px solid var(--line)}
+.kitd .hint{flex:1;min-width:220px}
+.hint{font-size:12.5px;color:var(--muted)}
 .langs button[aria-pressed="true"]{background:var(--grad);color:#fff}
 .btns{display:flex;flex-wrap:wrap;gap:8px}
 .btn{font:inherit;font-size:14px;font-weight:600;padding:8px 16px;border-radius:8px;border:0;background:var(--grad);color:#fff;cursor:pointer;border-radius:999px}
@@ -250,7 +247,7 @@ header > :nth-child(3){animation-delay:.16s}
   .bar .seqcap{order:3;flex-basis:100%;text-align:start}
   .seqwrap{display:none}
   .seqlist{display:flex}
-  .kitf .btn{width:100%}
+  .kitd .btn{width:100%}
   .bpc{display:grid;grid-template-columns:40px minmax(0,1fr);gap:2px 12px;padding:12px}
   .bpc .ic{grid-row:span 2}
   .rgrid{gap:8px}
@@ -358,8 +355,8 @@ header > :nth-child(3){animation-delay:.16s}
   <h2>API kit</h2>
   <div class="card kit">
     <div class="kitl">
-      <b>Postman collection <em class="pill">Template</em></b>
-      <p class="note">Four requests in HyperKYC SDK terms. Fill in the URLs from your HyperVerge docs, then download.</p>
+      <b>Postman collection <em class="pill">Sample</em></b>
+      <p class="note">Four requests in HyperKYC SDK terms: appId/appKey, accessToken, workflowId and transactionId.</p>
       <ol class="reqs">
         <li><span class="m">POST</span><span>Generate accessToken <small>server only, never in the app</small></span></li>
         <li><span class="m">POST</span><span>Fetch results by transactionId <small>for missed webhooks</small></span></li>
@@ -367,14 +364,10 @@ header > :nth-child(3){animation-delay:.16s}
         <li><span class="m">POST</span><span>Replay it again <small>duplicates must be safe</small></span></li>
       </ol>
     </div>
-    <form class="kitf" id="kitform" autocomplete="off">
-      <label>Access-token URL<input name="tokenUrl" type="url" placeholder="From HyperVerge docs"></label>
-      <label>Results URL<input name="resultsUrl" type="url" placeholder="From HyperVerge docs"></label>
-      <label>Your webhook URL<input name="webhookUrl" type="url" placeholder="https://uat.yourbank.example/kyc/webhook"></label>
-      <label>workflowId<input name="workflowId" type="text" value="sen_ekyc_v1"></label>
-      <button class="btn" id="postman" type="submit">Download Postman template</button>
-      <p class="hint">Empty fields stay as Postman variables. The webhook body is a sample; use the schema in your HyperVerge docs.</p>
-    </form>
+    <div class="kitd">
+      <button class="btn" id="postman" type="button">⬇ Download sample Postman file</button>
+      <p class="hint">A sample collection to import into Postman. Endpoint URLs and the webhook body are placeholders to replace from your HyperVerge docs.</p>
+    </div>
   </div>
 </section>
 
@@ -510,15 +503,13 @@ const webhookItem=(name,test)=>({name,
   event:[{listen:"test",script:{exec:[`pm.test('${test}', () => pm.response.to.have.status(200));`]}}],
   request:{method:"POST",header:[{key:"Content-Type",value:"application/json"}],body:{mode:"raw",raw:WEBHOOK_BODY,options:{raw:{language:"json"}}},url:"{{webhookUrl}}",
     description:"Sample payload only. Use the real webhook schema, and its authenticity check, from your HyperVerge docs."}});
-$("kitform").onsubmit=e=>{
-  e.preventDefault();
-  const f=Object.fromEntries(new FormData($("kitform")).entries()),v=(k,d)=>(f[k]||"").trim()||d;
+$("postman").onclick=()=>{
   const keys=[{key:"appId",value:"{{appId}}"},{key:"appKey",value:"{{appKey}}"}];
   const col={
-    info:{name:"Sen Bank eKYC — TEMPLATE (not a working integration)",schema:"https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-      description:"TEMPLATE for a fictional client, not a working HyperVerge integration. Uses HyperKYC SDK terms. Set appId, appKey and the three URLs from your HyperVerge docs first. HyperKycResult status values: auto_approved, auto_declined, needs_review, manually_approved, manually_declined, user_cancelled, error."},
-    variable:[["tokenUrl",v("tokenUrl","<access-token endpoint from HyperVerge docs>")],["resultsUrl",v("resultsUrl","<results endpoint from HyperVerge docs>")],["appId",""],["appKey",""],["workflowId",v("workflowId","sen_ekyc_v1")],["transactionId","SB-000184"],
-      ["webhookUrl",v("webhookUrl","https://uat.yourbank.example/kyc/webhook")],["accessToken",""]].map(([key,value])=>({key,value})),
+    info:{name:"Sen Bank eKYC — SAMPLE (not a working integration)",schema:"https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+      description:"SAMPLE collection for a fictional client, not a working HyperVerge integration. Uses HyperKYC SDK terms. Set appId, appKey and the three URLs from your HyperVerge docs first. HyperKycResult status values: auto_approved, auto_declined, needs_review, manually_approved, manually_declined, user_cancelled, error."},
+    variable:[["tokenUrl","<access-token endpoint from HyperVerge docs>"],["resultsUrl","<results endpoint from HyperVerge docs>"],["appId",""],["appKey",""],["workflowId","sen_ekyc_v1"],["transactionId","SB-000184"],
+      ["webhookUrl","https://uat.yourbank.example/kyc/webhook"],["accessToken",""]].map(([key,value])=>({key,value})),
     item:[
       {name:"1. Generate accessToken (server only, never in the app)",
        event:[{listen:"test",script:{exec:["pm.test('200 OK', () => pm.response.to.have.status(200));","const j = pm.response.json();","pm.collectionVariables.set('accessToken', j.accessToken || (j.result && j.result.token) || j.token || '');"]}}],
@@ -532,7 +523,7 @@ $("kitform").onsubmit=e=>{
     ]};
   const a=document.createElement("a");
   a.href=URL.createObjectURL(new Blob([JSON.stringify(col,null,2)],{type:"application/json"}));
-  a.download="sen-bank-ekyc-TEMPLATE.postman_collection.json";
+  a.download="sen-bank-ekyc-sample.postman_collection.json";
   document.body.appendChild(a);a.click();a.remove();
   setTimeout(()=>URL.revokeObjectURL(a.href),1000);
 };
