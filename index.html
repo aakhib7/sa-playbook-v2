@@ -209,6 +209,22 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .sig{color:var(--ink)}
 .sig a{color:var(--accent)}
 
+/* done-when lines and failure handling */
+.donew{display:flex;align-items:flex-start;gap:8px;font-size:13.5px;padding:8px 12px;border-radius:10px;border:1px dashed color-mix(in srgb,var(--accent) 40%,var(--line));background:color-mix(in srgb,var(--accent-soft) 55%,transparent)}
+.donew b{color:var(--accent);white-space:nowrap}
+.fbgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:900px){.fbgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.fbgrid{grid-template-columns:minmax(0,1fr)}}
+.fb{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:8px;border-top:3px solid var(--bad)}
+.fb b{font-size:14.5px}
+.fb p{font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:2px}
+.fb i{font-style:normal;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
+.fb p:last-child i{color:var(--ok)}
+.fb code{font-family:var(--f-mono);font-size:12px;color:var(--ink);background:var(--accent-soft);padding:0 5px;border-radius:4px;align-self:flex-start;display:inline}
+.fb p:first-of-type{flex-direction:row;flex-wrap:wrap;align-items:center;gap:2px 6px}
+.fb p:first-of-type i{flex-basis:100%}
+@media print{.fb,.donew{break-inside:avoid}}
+
 /* best practices */
 .bp .lbl{margin-top:4px}
 .bpgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
@@ -370,6 +386,7 @@ header > :nth-child(3){animation-delay:.16s}
       </ol></li>
     <li><a href="#poc">Discovery &amp; POC</a></li>
     <li><a href="#security">Security &amp; data</a></li>
+    <li><a href="#fallbacks">Failure handling</a></li>
     <li><a href="#demo">Live demo</a></li>
     <li><a href="#api">API kit</a></li>
     <li><a href="#practices">Best practices</a></li>
@@ -401,27 +418,33 @@ header > :nth-child(3){animation-delay:.16s}
     <li class="step" id="step-1"><div class="rail"><span class="dot">1</span><span class="line"></span></div>
       <div class="body"><h3><span class="emo" aria-hidden="true">🔍</span>Discovery: know the client and the region</h3><span class="tag">Regional nuance · communication styles</span>
         <div class="pf"><div class="p"><b>✕</b><span>A “yes” on the call can mean “I heard you”, not “we agree”.</span></div>
-        <div class="f"><b>✓</b><span>Map stakeholders, systems and constraints, plus language, time overlap and data law. Meet the local partner.</span></div></div></div></li>
+        <div class="f"><b>✓</b><span>Map stakeholders, systems and constraints, plus language, time overlap and data law. Meet the local partner.</span></div></div>
+        <p class="donew"><span aria-hidden="true">🏁</span><b>Done when:</b> Stakeholders, systems, volumes and the data law are written down and confirmed by the client.</p></div></li>
     <li class="step" id="step-2"><div class="rail"><span class="dot">2</span><span class="line"></span></div>
       <div class="body"><h3><span class="emo" aria-hidden="true">📝</span>Requirements: agree the scope and the words</h3><span class="tag">Terminology gaps · translation teams</span>
         <div class="pf"><div class="p"><b>✕</b><span>“Webhook” translated three ways in three documents.</span></div>
-        <div class="f"><b>✓</b><span>A signed-off scope and one shared glossary. AI drafts translations, a native-speaking partner reviews them.</span></div></div></div></li>
+        <div class="f"><b>✓</b><span>A signed-off scope and one shared glossary. AI drafts translations, a native-speaking partner reviews them.</span></div></div>
+        <p class="donew"><span aria-hidden="true">🏁</span><b>Done when:</b> Scope is signed off and the glossary is locked in both languages.</p></div></li>
     <li class="step" id="step-3"><div class="rail"><span class="dot">3</span><span class="line"></span></div>
       <div class="body"><h3><span class="emo" aria-hidden="true">🗺️</span>Solution design: a visual blueprint</h3><span class="tag">Visual integration blueprints</span>
         <div class="pf"><div class="p"><b>✕</b><span>Long English documents nobody finishes reading.</span></div>
-        <div class="f"><b>✓</b><span>Diagrams and code first, short sentences second. See the live demo below.</span></div></div></div></li>
+        <div class="f"><b>✓</b><span>Diagrams and code first, short sentences second. See the live demo below.</span></div></div>
+        <p class="donew"><span aria-hidden="true">🏁</span><b>Done when:</b> The client's tech lead approves the blueprint and the data flow.</p></div></li>
     <li class="step" id="step-4"><div class="rail"><span class="dot">4</span><span class="line"></span></div>
       <div class="body"><h3><span class="emo" aria-hidden="true">🔌</span>Integration: an API kit that runs</h3><span class="tag">Standardized API docs · Postman</span>
         <div class="pf"><div class="p"><b>✕</b><span>Every team reads the API docs differently.</span></div>
-        <div class="f"><b>✓</b><span>A shared Postman template, filled with the real endpoints during integration. Engineers test instead of reading.</span></div></div></div></li>
+        <div class="f"><b>✓</b><span>A shared Postman template, filled with the real endpoints during integration. Engineers test instead of reading.</span></div></div>
+        <p class="donew"><span aria-hidden="true">🏁</span><b>Done when:</b> Every Postman request passes in UAT, and duplicate webhooks are handled safely.</p></div></li>
     <li class="step" id="step-5"><div class="rail"><span class="dot">5</span><span class="line"></span></div>
       <div class="body"><h3><span class="emo" aria-hidden="true">🔄</span>Delivery cadence: async first, live in the overlap</h3><span class="tag">Async loops · time zone friction · high-context cultures</span>
         <div class="pf"><div class="p"><b>✕</b><span>One question takes three days of email. Blockers are never said in the group call.</span></div>
-        <div class="f"><b>✓</b><span>Short calls in shared hours, a written recap in both languages, and a 1:1 with the tech lead.</span></div></div></div></li>
+        <div class="f"><b>✓</b><span>Short calls in shared hours, a written recap in both languages, and a 1:1 with the tech lead.</span></div></div>
+        <p class="donew"><span aria-hidden="true">🏁</span><b>Done when:</b> Every open question has an owner and a date in the shared log.</p></div></li>
     <li class="step" id="step-6"><div class="rail"><span class="dot">6</span><span class="line"></span></div>
       <div class="body"><h3><span class="emo" aria-hidden="true">🛡️</span>Security, compliance and go-live</h3><span class="tag">Local data privacy mandates</span>
         <div class="pf"><div class="p"><b>✕</b><span>Go-live stalls while security asks where the selfies are stored.</span></div>
-        <div class="f"><b>✓</b><span>Bring a data map, the local rules and the security documents to the first security call.</span></div></div></div></li>
+        <div class="f"><b>✓</b><span>Bring a data map, the local rules and the security documents to the first security call.</span></div></div>
+        <p class="donew"><span aria-hidden="true">🏁</span><b>Done when:</b> Security sign-off is in and the go-live checklist is complete.</p></div></li>
     <li class="step" id="step-7"><div class="rail"><span class="dot">7</span><span class="line"></span></div>
       <div class="body"><h3><span class="emo" aria-hidden="true">📈</span>Post-go-live: hypercare, scale and support</h3><span class="tag">Troubleshooting · optimization · long-term adoption</span>
         <div class="pf"><div class="p"><b>✕</b><span>After launch, drop-offs and slow responses go unnoticed until customers complain.</span></div>
@@ -432,7 +455,8 @@ header > :nth-child(3){animation-delay:.16s}
           <div><span class="ki">📊</span><b>Monitor<em class="pill">Proposed</em></b><p>Completion funnel, p95 latency, error codes and auto-approve rate, with alerts on drops.</p></div>
           <div><span class="ki">🚀</span><b>Scale<em class="pill">Proposed</em></b><p>Load-test at 3× peak before campaigns, paydays, Tết and Ramadan.</p></div>
           <div><span class="ki">🆘</span><b>Support<em class="pill">Proposed</em></b><p>P1 response in 30 min, root cause in 48 h, planned SDK upgrades.</p></div>
-        </div></div></li>
+        </div>
+        <p class="donew"><span aria-hidden="true">🏁</span><b>Done when:</b> 30 days with no P1 issues, and metrics holding at the agreed targets.</p></div></li>
   </ol>
 </section>
 
@@ -504,6 +528,19 @@ header > :nth-child(3){animation-delay:.16s}
       </div>
       <p class="note">Chosen by the regulator's rules and the bank's policy, then recorded in the decision log.</p>
     </div>
+  </div>
+</section>
+
+<section class="reveal" id="fallbacks">
+  <h2>Failure handling</h2>
+  <p class="note">What breaks in production, how we spot it, and what the customer sees instead.</p>
+  <div class="fbgrid">
+    <div class="fb"><b>Liveness or face match fails</b><p><i>Detect</i><code>auto_declined</code> or <code>needs_review</code></p><p><i>Fallback</i>Guided retry, then manual review or video KYC.</p></div>
+    <div class="fb"><b>Network drops mid-capture</b><p><i>Detect</i><code>error</code> or <code>user_cancelled</code> from the SDK</p><p><i>Fallback</i>Resume with the same transactionId, never a new application.</p></div>
+    <div class="fb"><b>Webhook never arrives</b><p><i>Detect</i>No callback within the agreed window</p><p><i>Fallback</i>Poll the results API by transactionId and alert if the gap persists.</p></div>
+    <div class="fb"><b>Same webhook arrives twice</b><p><i>Detect</i>transactionId already processed</p><p><i>Fallback</i>Idempotent handler: process once, still return 200.</p></div>
+    <div class="fb"><b>API slow or unavailable</b><p><i>Detect</i>p95 latency or error-rate alert</p><p><i>Fallback</i>Retry with backoff, a clear "try again later" screen, escalate as P1.</p></div>
+    <div class="fb"><b>Camera fails on a low-end phone</b><p><i>Detect</i>SDK errorCode on camera start</p><p><i>Fallback</i>Plain-language help, then the web flow or assisted onboarding at a branch.</p></div>
   </div>
 </section>
 
