@@ -258,6 +258,33 @@ header > :nth-child(3){animation-delay:.16s}
 }
 @media (max-width:360px){.kpis{grid-template-columns:minmax(0,1fr)}}
 
+/* PDF button + print layout */
+.hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:6px}
+.hero-actions span{font-size:13px;color:#d9c8ff}
+.hero-btn{font-size:14px;font-weight:700;color:#6a3fb9;background:#fff;padding:9px 18px;border-radius:999px;text-decoration:none;box-shadow:0 8px 20px -10px rgba(0,0,0,.6);transition:transform .15s ease, box-shadow .15s}
+.hero-btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px -10px rgba(0,0,0,.7)}
+.hero-btn:focus-visible{outline:2px solid #fff;outline-offset:3px}
+@media print{
+  @page{size:A4;margin:12mm}
+  :root,:root[data-theme="dark"],:root:not([data-theme="light"]){
+    --bg:#f6f6f9; --surface:#ffffff; --ink:#14111f; --muted:#5d5873; --line:#e7e1f3;
+    --accent:#6a3fb9; --accent-2:#ad52ad; --accent-soft:#f2ecff; --ok:#1f7a4a; --bad:#b42318; color-scheme:light}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact;animation:none!important;transition:none!important}
+  body{background:#fff;font-size:13px}
+  .wrap{max-width:none;padding:0;gap:22px}
+  header{padding:26px 28px}
+  .hero-actions,#play,.track,.langcol,.bar .seqcap,.kitd .btn,.live::before{display:none!important}
+  .js .step .dot,.js .step .body,.js .step .pf div,.js .step .kpis div,.js .reveal,.js .step .line,.role,header>*{opacity:1!important;transform:none!important}
+  .demo{grid-template-columns:minmax(0,1fr);box-shadow:none}
+  .seqwrap{display:block!important;overflow:visible}
+  .seq{min-width:0}
+  .seqlist{display:none!important}
+  .phases em{background:none!important;color:var(--accent)!important;-webkit-text-fill-color:var(--accent)}
+  .card,.rc,.bpc,.kpis div,.regs button,.reqs li,.pf div{box-shadow:none!important;break-inside:avoid}
+  .step{break-inside:avoid}
+  h2,h3{break-after:avoid}
+}
+
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   .js .step .dot,.js .step .body,.js .step .pf div,.js .step .kpis div,.js .reveal{opacity:1!important;transform:none!important}
@@ -271,13 +298,14 @@ header > :nth-child(3){animation-delay:.16s}
 <header>
   <h1>Cross-Border Solution Architecture Playbook</h1>
   <p class="sub">How I would approach taking enterprise and BFSI clients from first call to scale, across languages, cultures and time zones.</p>
+  <div class="hero-actions"><a class="hero-btn" href="cross-border-sa-playbook.pdf" download>⬇ Download as PDF</a><span>To read offline or print</span></div>
 </header>
 
 <section class="role">
   <p class="phases"><span>Discover</span><i>→</i><span>Design</span><i>→</i><span>Integrate</span><i>→</i><span>Launch</span><i>→</i><span>Optimize</span><em>One architect, one solution, end to end.</em></p>
   <div class="rgrid">
     <div class="rc"><span class="ic">🧭</span><b>Solution architecture &amp; integration</b><p>End-to-end solutions and workflows, from discovery to post-go-live.</p></div>
-    <div class="rc"><span class="ic">🤝</span><b>Pre-sales &amp; technical discovery</b><p>Discovery sessions, product deep-dives, security queries and POCs with Sales.</p></div>
+    <div class="rc"><span class="ic">💬</span><b>Pre-sales &amp; technical discovery</b><p>Discovery sessions, product deep-dives, security queries and POCs with Sales.</p></div>
     <div class="rc"><span class="ic">🏦</span><b>Enterprise &amp; BFSI delivery</b><p>Trusted advisor through strict security, compliance and data privacy constraints.</p></div>
     <div class="rc"><span class="ic">🔁</span><b>Cross-functional bridge</b><p>Market needs and client feedback into the product roadmap.</p></div>
     <div class="rc"><span class="ic">🛠️</span><b>Troubleshooting &amp; optimization</b><p>Fix integration issues, tune API and SDK performance, build execution frameworks.</p></div>
@@ -430,7 +458,7 @@ let X=X0;
 
 const calm=()=>matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-const ICON=["📱","🏦","🪪"];
+const ICON=["📱","🏦","🆔"];
 // Language-neutral trust markers: step 5 is display only, step 6 is the signed result
 const MARK={4:" 👁",5:" 🔒"};
 // userSpaceOnUse: horizontal lines have a zero-height bounding box, which would blank a bbox-relative gradient or filter

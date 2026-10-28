@@ -3,6 +3,7 @@
 A single-page work sample by Syed Aakhib. It is a **proposed Solutions Architect approach for a fictional client**, not a record of past KYC delivery.
 
 **Live page:** https://aakhib7.github.io/sa-playbook-v2/
+**PDF:** https://aakhib7.github.io/sa-playbook-v2/cross-border-sa-playbook.pdf (also from the "Download as PDF" button on the page)
 
 ## What's inside
 
@@ -22,3 +23,5 @@ A single-page work sample by Syed Aakhib. It is a **proposed Solutions Architect
 - This is an independent work sample, not an official HyperVerge page.
 
 Built as one self-contained `index.html` with no build step. Open it in any browser.
+
+After editing the page, run `./make-pdf.sh` (macOS, Google Chrome) to rebuild the PDF.
