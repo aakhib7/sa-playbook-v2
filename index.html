@@ -226,19 +226,20 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 @media print{.fb,.donew{break-inside:avoid}}
 
 /* delivery plan and go-live checklist */
-.gantt{display:flex;flex-direction:column;gap:4px;overflow-x:auto}
-.gr{display:grid;grid-template-columns:230px minmax(360px,1fr);gap:14px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.gantt{display:flex;flex-direction:column;gap:0;overflow-x:auto;padding:14px 18px}
+.gr{display:grid;grid-template-columns:255px minmax(360px,1fr);gap:12px;align-items:center;padding:4px 0;border-bottom:1px solid var(--line)}
 .gr:last-child{border-bottom:0}
-.gh{padding:0 0 6px}
-.gl{display:flex;flex-direction:column;gap:1px;font-size:12.5px;color:var(--muted)}
-.gl b{font-size:14px;color:var(--ink)}
-.gl em{font-style:normal;font-weight:700;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);margin-right:4px}
-.gt{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:4px;align-items:center;background:repeating-linear-gradient(90deg,transparent 0 calc(10% - 1px),var(--line) calc(10% - 1px) 10%);min-height:30px}
+.gh{padding:0 0 4px}
+.gl{display:flex;flex-direction:column;gap:0;font-size:11.5px;line-height:1.35;color:var(--muted);min-width:0}
+.gl span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gl b{font-size:13px;color:var(--ink)}
+.gl em{font-style:normal;font-weight:700;color:var(--accent)}
+.gt{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:4px;align-items:center;background:repeating-linear-gradient(90deg,transparent 0 calc(10% - 1px),var(--line) calc(10% - 1px) 10%);min-height:24px}
 .gh .gt{background:none;min-height:0}
 .gh .gt span{font-family:var(--f-mono);font-size:11px;color:var(--muted);text-align:center}
-.gb{height:26px;border-radius:99px;background:var(--grad);color:#fff;font-family:var(--f-mono);font-size:11px;font-weight:600;display:grid;place-items:center;white-space:nowrap;box-shadow:0 6px 14px -8px color-mix(in srgb,var(--accent) 80%,transparent)}
+.gb{height:18px;border-radius:99px;background:var(--grad);color:#fff;font-family:var(--f-mono);font-size:10px;font-weight:600;display:grid;place-items:center;white-space:nowrap;box-shadow:0 6px 14px -8px color-mix(in srgb,var(--accent) 80%,transparent)}
 #plan .gr:nth-child(5) .gb{background:repeating-linear-gradient(135deg,#6a3fb9 0 8px,#885fd9 8px 16px)}
-@media (max-width:640px){.gr{grid-template-columns:minmax(0,1fr);gap:6px}.gh .gl{display:none}.gt{min-width:0}}
+@media (max-width:640px){.gantt{padding:10px 12px}.gr{grid-template-columns:minmax(0,1fr);gap:3px;padding:5px 0}.gh .gl{display:none}.gt{min-width:0}.gl span{white-space:normal}}
 .glhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px}
 .glcount{font-family:var(--f-mono);font-size:13px;font-weight:700;color:#fff;background:var(--grad);padding:3px 12px;border-radius:99px}
 .glcount.all{background:var(--ok)}
@@ -493,13 +494,13 @@ header > :nth-child(3){animation-delay:.16s}
   <p class="note">A typical 10-week path for one bank. The security review runs alongside the build, so it never blocks go-live at the end.</p>
   <div class="card gantt">
     <div class="gr gh"><div class="gl"></div><div class="gt"><span>W1</span><span>W2</span><span>W3</span><span>W4</span><span>W5</span><span>W6</span><span>W7</span><span>W8</span><span>W9</span><span>W10</span></div></div>
-      <div class="gr"><div class="gl"><b>Discovery</b><span><em>Lead</em> SA</span><span><em>With</em> Bank tech lead · Sales</span></div><div class="gt"><span class="gb" style="grid-column:1 / 2">W1</span></div></div>
-      <div class="gr"><div class="gl"><b>Requirements &amp; glossary</b><span><em>Lead</em> SA</span><span><em>With</em> Bank product · Local partner</span></div><div class="gt"><span class="gb" style="grid-column:2 / 3">W2</span></div></div>
-      <div class="gr"><div class="gl"><b>Solution design</b><span><em>Lead</em> SA</span><span><em>With</em> Bank architect · HyperVerge engineering</span></div><div class="gt"><span class="gb" style="grid-column:3 / 4">W3</span></div></div>
-      <div class="gr"><div class="gl"><b>Security review</b><span><em>Lead</em> Bank InfoSec</span><span><em>With</em> HyperVerge security · SA</span></div><div class="gt"><span class="gb" style="grid-column:3 / 7">W3–6</span></div></div>
-      <div class="gr"><div class="gl"><b>Integration &amp; UAT</b><span><em>Lead</em> Bank engineers</span><span><em>With</em> SA · HyperVerge support</span></div><div class="gt"><span class="gb" style="grid-column:4 / 6">W4–5</span></div></div>
-      <div class="gr"><div class="gl"><b>Go-live</b><span><em>Lead</em> Bank</span><span><em>With</em> SA · Customer Success</span></div><div class="gt"><span class="gb" style="grid-column:6 / 7">W6</span></div></div>
-      <div class="gr"><div class="gl"><b>Hypercare</b><span><em>Lead</em> SA</span><span><em>With</em> Customer Success · Bank ops</span></div><div class="gt"><span class="gb" style="grid-column:7 / 11">W7–10</span></div></div>
+      <div class="gr"><div class="gl"><b>Discovery</b><span><em>SA</em> · Bank tech lead, Sales</span></div><div class="gt"><span class="gb" style="grid-column:1 / 2">W1</span></div></div>
+      <div class="gr"><div class="gl"><b>Requirements &amp; glossary</b><span><em>SA</em> · Bank product, Local partner</span></div><div class="gt"><span class="gb" style="grid-column:2 / 3">W2</span></div></div>
+      <div class="gr"><div class="gl"><b>Solution design</b><span><em>SA</em> · Bank architect, HyperVerge engineering</span></div><div class="gt"><span class="gb" style="grid-column:3 / 4">W3</span></div></div>
+      <div class="gr"><div class="gl"><b>Security review</b><span><em>Bank InfoSec</em> · HyperVerge security, SA</span></div><div class="gt"><span class="gb" style="grid-column:3 / 7">W3–6</span></div></div>
+      <div class="gr"><div class="gl"><b>Integration &amp; UAT</b><span><em>Bank engineers</em> · SA, HyperVerge support</span></div><div class="gt"><span class="gb" style="grid-column:4 / 6">W4–5</span></div></div>
+      <div class="gr"><div class="gl"><b>Go-live</b><span><em>Bank</em> · SA, Customer Success</span></div><div class="gt"><span class="gb" style="grid-column:6 / 7">W6</span></div></div>
+      <div class="gr"><div class="gl"><b>Hypercare</b><span><em>SA</em> · Customer Success, Bank ops</span></div><div class="gt"><span class="gb" style="grid-column:7 / 11">W7–10</span></div></div>
   </div>
 </section>
 
