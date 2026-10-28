@@ -78,7 +78,18 @@ section{display:flex;flex-direction:column;gap:16px}
 @media (max-width:460px){.kpis{grid-template-columns:minmax(0,1fr)}}
 .kpis div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:4px;font-size:13.5px}
 .kpis .ki{font-size:18px;line-height:1}
-.kpis b{font-size:14px}
+.kpis b{font-size:14px;display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px}
+.pill{font-style:normal;font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:99px;color:#8a5a00;background:#fff3d6;border:1px solid #f3d38a;white-space:nowrap}
+:root[data-theme="dark"] .pill{color:#f5c869;background:#3a2c0c;border-color:#6b5218}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .pill{color:#f5c869;background:#3a2c0c;border-color:#6b5218}}
+.flag{align-self:flex-start;font-size:12px;font-weight:600;color:#8a5a00;background:#fff3d6;border:1px dashed #e9bf5c;padding:3px 10px;border-radius:8px}
+:root[data-theme="dark"] .flag{color:#f5c869;background:#3a2c0c;border-color:#6b5218}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .flag{color:#f5c869;background:#3a2c0c;border-color:#6b5218}}
+.disclaim{align-self:flex-start;font-size:12.5px;font-weight:600;color:#fff;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);padding:4px 12px;border-radius:99px}
+.ph{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--muted)}
+.ph li{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}
+.ph code{font-family:var(--f-mono);font-size:12px;color:var(--ink);background:var(--accent-soft);padding:1px 6px;border-radius:5px}
+.kit > div b{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
 .kpis p{color:var(--muted);font-size:13px}
 .js .step .kpis div{opacity:0;transform:translateY(10px);transition:opacity .45s ease, transform .45s ease}
 .js .step.in .kpis div{opacity:1;transform:none}
@@ -254,8 +265,9 @@ header > :nth-child(3){animation-delay:.16s}
 <div class="wrap">
 
 <header>
-  <span class="eyebrow">Syed Aakhib · Senior Solutions Architect · work sample</span>
+  <span class="eyebrow">Syed Aakhib · Lead Engineer, Enterprise Integrations</span>
   <h1>Cross-Border Solution Architecture Playbook</h1>
+  <span class="disclaim">Proposed SA solution for a fictional client (Sen Bank) · not a record of past KYC delivery</span>
   <p class="sub">How I take enterprise and BFSI clients from first call to scale, across languages, cultures and time zones.</p>
 </header>
 
@@ -288,7 +300,7 @@ header > :nth-child(3){animation-delay:.16s}
     <li class="step"><div class="rail"><span class="dot">4</span><span class="line"></span></div>
       <div class="body"><h3><span class="emo" aria-hidden="true">🔌</span>Integration: an API kit that runs</h3><span class="tag">Standardized API docs · Postman</span>
         <div class="pf"><div class="p"><b>✕</b><span>Every team reads the API docs differently.</span></div>
-        <div class="f"><b>✓</b><span>One Postman collection. Engineers test the API instead of reading about it.</span></div></div></div></li>
+        <div class="f"><b>✓</b><span>A shared Postman template, filled with the real endpoints during integration. Engineers test instead of reading.</span></div></div></div></li>
     <li class="step"><div class="rail"><span class="dot">5</span><span class="line"></span></div>
       <div class="body"><h3><span class="emo" aria-hidden="true">🔄</span>Delivery cadence: async first, live in the overlap</h3><span class="tag">Async loops · time zone friction · high-context cultures</span>
         <div class="pf"><div class="p"><b>✕</b><span>One question takes three days of email. Blockers are never said in the group call.</span></div>
@@ -301,11 +313,12 @@ header > :nth-child(3){animation-delay:.16s}
       <div class="body"><h3><span class="emo" aria-hidden="true">📈</span>Post-go-live: hypercare, scale and support</h3><span class="tag">Troubleshooting · optimization · long-term adoption</span>
         <div class="pf"><div class="p"><b>✕</b><span>After launch, drop-offs and slow responses go unnoticed until customers complain.</span></div>
         <div class="f"><b>✓</b><span>Hypercare, live dashboards with alerts, and a named escalation path in the client's language.</span></div></div>
+        <span class="flag">Proposed targets · to agree with the client in the SLA</span>
         <div class="kpis">
-          <div><span class="ki">🩺</span><b>Hypercare</b><p>First 30 days: daily check-in, then weekly. A shared issue log.</p></div>
-          <div><span class="ki">📊</span><b>Monitor</b><p>Completion funnel, p95 latency, error codes and auto-approve rate, with alerts on drops.</p></div>
-          <div><span class="ki">🚀</span><b>Scale</b><p>Load-test at 3× peak before campaigns, paydays, Tết and Ramadan.</p></div>
-          <div><span class="ki">🆘</span><b>Support</b><p>P1 response in 30 min, root cause in 48 h, planned SDK upgrades.</p></div>
+          <div><span class="ki">🩺</span><b>Hypercare<em class="pill">Proposed</em></b><p>First 30 days: daily check-in, then weekly. A shared issue log.</p></div>
+          <div><span class="ki">📊</span><b>Monitor<em class="pill">Proposed</em></b><p>Completion funnel, p95 latency, error codes and auto-approve rate, with alerts on drops.</p></div>
+          <div><span class="ki">🚀</span><b>Scale<em class="pill">Proposed</em></b><p>Load-test at 3× peak before campaigns, paydays, Tết and Ramadan.</p></div>
+          <div><span class="ki">🆘</span><b>Support<em class="pill">Proposed</em></b><p>P1 response in 30 min, root cause in 48 h, planned SDK upgrades.</p></div>
         </div></div></li>
   </ol>
 </section>
@@ -338,9 +351,14 @@ header > :nth-child(3){animation-delay:.16s}
 <section class="reveal">
   <h2>API kit</h2>
   <div class="card kit">
-    <div><b>Postman collection</b>
-      <p class="note">Four requests in HyperVerge's terms (appId/appKey, accessToken, workflowId, transactionId): generate an access token, fetch results, replay a sample webhook, and replay it again to test duplicates. URLs are placeholders for the ones in your HyperVerge docs.</p></div>
-    <button class="btn" id="postman" type="button">Download Postman collection</button>
+    <div><b>Postman collection <em class="pill">Template</em></b>
+      <p class="note">A starting template, not a working HyperVerge integration yet. Four requests in HyperKYC SDK terms (appId/appKey, accessToken, workflowId, transactionId): generate an access token, fetch results, replay a sample webhook, and replay it again to test duplicates.</p>
+      <ul class="ph">
+        <li><code>tokenUrl</code><em class="pill">Placeholder</em>access-token endpoint, from HyperVerge docs</li>
+        <li><code>resultsUrl</code><em class="pill">Placeholder</em>results API, from HyperVerge docs</li>
+        <li><code>webhook payload</code><em class="pill">Placeholder</em>sample only; real schema and authenticity check from HyperVerge docs</li>
+      </ul></div>
+    <button class="btn" id="postman" type="button">Download Postman template</button>
   </div>
 </section>
 
@@ -377,7 +395,7 @@ header > :nth-child(3){animation-delay:.16s}
   <p class="note">Language and time difference from Bangalore. Click a region to see the demo in its language. Patterns to plan for, checked with the local partner in week one.</p>
 </section>
 
-<p class="note">Fictional client, Sen Bank. SDK terms and status values follow HyperVerge's public Flutter SDK (hyperkyc_flutter on pub.dev); endpoint URLs and the webhook payload are placeholders. Translations are AI-drafted and not yet reviewed by a native speaker. Independent work sample styled after HyperVerge's public site; not an official HyperVerge page.</p>
+<p class="note">Proposed solution for a fictional client, Sen Bank; not a record of past KYC delivery. SDK terms and status values follow HyperVerge's public Flutter SDK (hyperkyc_flutter on pub.dev); endpoint URLs and the webhook payload are placeholders. Translations are AI-drafted and not yet reviewed by a native speaker. Independent work sample styled after HyperVerge's public site; not an official HyperVerge page.</p>
 </div>
 
 <script>
@@ -479,8 +497,8 @@ const webhookItem=(name,test)=>({name,
 $("postman").onclick=()=>{
   const keys=[{key:"appId",value:"{{appId}}"},{key:"appKey",value:"{{appKey}}"}];
   const col={
-    info:{name:"Sen Bank eKYC (sample)",schema:"https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-      description:"Sample collection in HyperVerge HyperKYC terms. Set appId, appKey and the three URLs from your HyperVerge docs first. HyperKycResult status values: auto_approved, auto_declined, needs_review, manually_approved, manually_declined, user_cancelled, error."},
+    info:{name:"Sen Bank eKYC — TEMPLATE (not a working integration)",schema:"https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+      description:"TEMPLATE for a fictional client, not a working HyperVerge integration. Uses HyperKYC SDK terms. Set appId, appKey and the three URLs from your HyperVerge docs first. HyperKycResult status values: auto_approved, auto_declined, needs_review, manually_approved, manually_declined, user_cancelled, error."},
     variable:[["tokenUrl","<access-token endpoint from HyperVerge docs>"],["resultsUrl","<results endpoint from HyperVerge docs>"],["appId",""],["appKey",""],["workflowId","sen_ekyc_v1"],["transactionId","SB-000184"],
       ["webhookUrl","https://uat.senbank.example/kyc/webhook"],["accessToken",""]].map(([key,value])=>({key,value})),
     item:[
@@ -496,7 +514,7 @@ $("postman").onclick=()=>{
     ]};
   const a=document.createElement("a");
   a.href=URL.createObjectURL(new Blob([JSON.stringify(col,null,2)],{type:"application/json"}));
-  a.download="sen-bank-ekyc.postman_collection.json";
+  a.download="sen-bank-ekyc-TEMPLATE.postman_collection.json";
   document.body.appendChild(a);a.click();a.remove();
   setTimeout(()=>URL.revokeObjectURL(a.href),1000);
 };
