@@ -363,6 +363,23 @@ h1{font-size:clamp(28px,3.6vw,40px)}
 .regs{grid-template-columns:repeat(auto-fill,minmax(min(100%,150px),1fr));gap:8px}
 .regs button{padding:9px 12px}
 
+/* regions in the sidebar on wide screens */
+.sregs{margin-top:20px;padding-top:14px;border-top:1px solid var(--line)}
+.sregl{display:flex;flex-direction:column;gap:1px}
+.sregl button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:8px;padding:4px 12px;border-radius:9px;transition:background .2s}
+.sregl b{font-size:13px;font-weight:600;color:var(--ink);line-height:1.3}
+.sregl small{grid-column:1;font-size:11.5px;color:var(--accent)}
+.sregl em{grid-row:1 / span 2;grid-column:2;align-self:center;font-style:normal;font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+.sregl button:hover,.sregl button.on{background:var(--accent-soft)}
+.sregl button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.snote{font-size:11px;line-height:1.4;color:var(--muted);margin:6px 12px 0}
+@media (min-width:1101px){
+  #regions,.toc .tregions{display:none}
+  .toc .sub{display:none}
+  .toc .tflow.open .sub{display:flex}
+}
+@media (max-width:1100px){.sregs{display:none}}
+
 /* phone layout */
 .seqlist{display:none;list-style:none;margin:0;padding:0;flex-direction:column;gap:8px}
 .seqlist li{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);transition:border-color .3s, box-shadow .3s, opacity .3s}
@@ -452,7 +469,7 @@ h1{font-size:clamp(28px,3.6vw,40px)}
   <span class="toct">Contents</span>
   <ol>
     <li><a href="#role">Role at a glance</a></li>
-    <li><a href="#flow">Delivery flow</a>
+    <li class="tflow"><a href="#flow">Delivery flow</a>
       <ol class="sub">
         <li><a href="#step-1">1 · Discovery</a></li>
         <li><a href="#step-2">2 · Requirements</a></li>
@@ -470,8 +487,22 @@ h1{font-size:clamp(28px,3.6vw,40px)}
     <li><a href="#demo">Live demo</a></li>
     <li><a href="#api">API kit</a></li>
     <li><a href="#practices">Best practices</a></li>
-    <li><a href="#regions">Regions</a></li>
+    <li class="tregions"><a href="#regions">Regions</a></li>
   </ol>
+  <div class="sregs">
+    <span class="toct">Regions I plan for</span>
+    <div class="sregl">
+      <button type="button" data-l="vi"><b>Vietnam</b><small>Vietnamese</small><em>+1:30</em></button>
+      <button type="button" data-l="id"><b>Indonesia</b><small>Bahasa Indonesia</small><em>+1:30</em></button>
+      <button type="button" data-l="en"><b>Philippines</b><small>Filipino, English</small><em>+2:30</em></button>
+      <button type="button" data-l="ja"><b>Japan</b><small>Japanese</small><em>+3:30</em></button>
+      <button type="button" data-l="ar"><b>Saudi Arabia</b><small>Arabic</small><em>−2:30</em></button>
+      <button type="button" data-l="ar"><b>UAE</b><small>Arabic, English</small><em>−1:30</em></button>
+      <button type="button" data-l="fr"><b>Senegal · Côte d'Ivoire</b><small>French</small><em>−5:30</em></button>
+      <button type="button" data-l="pt"><b>Brazil</b><small>Portuguese</small><em>−8:30</em></button>
+    </div>
+    <p class="snote">Time vs Bangalore (IST). Click one to see the demo in its language.</p>
+  </div>
 </nav>
 <div class="wrap">
 
@@ -826,10 +857,10 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.targ
 document.querySelectorAll(".step,.reveal").forEach(el=>io.observe(el));
 let autoplayed=false;
 new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting&&!autoplayed){autoplayed=true;o.disconnect();setTimeout(play,400)}}),{threshold:.3}).observe(document.querySelector(".demo"));
-document.querySelectorAll(".langs button").forEach(b=>b.onclick=()=>{L=b.dataset.l;render();document.querySelectorAll(".regs button").forEach(x=>x.classList.remove("on"))});
-document.querySelectorAll(".regs button").forEach(b=>b.onclick=()=>{
+document.querySelectorAll(".langs button").forEach(b=>b.onclick=()=>{L=b.dataset.l;render();document.querySelectorAll(".regs button,.sregl button").forEach(x=>x.classList.remove("on"))});
+document.querySelectorAll(".regs button,.sregl button").forEach(b=>b.onclick=()=>{
   L=b.dataset.l;render();
-  document.querySelectorAll(".regs button").forEach(x=>x.classList.toggle("on",x===b));
+  document.querySelectorAll(".regs button,.sregl button").forEach(x=>x.classList.toggle("on",x.dataset.l===b.dataset.l&&x.querySelector("b").textContent===b.querySelector("b").textContent));
   document.querySelector(".demo").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});
 });
 
@@ -872,12 +903,13 @@ const spyEls=[...document.querySelectorAll("section[id],.step[id]")];
 let spyKey="";
 function spyUpdate(){
   const line=Math.min(innerHeight*0.3,140);let sec="",step="";
-  for(const el of spyEls){if(el.getBoundingClientRect().top>line)continue;el.classList.contains("step")?step=el.id:sec=el.id}
+  for(const el of spyEls){if(!el.offsetParent||el.getBoundingClientRect().top>line)continue;el.classList.contains("step")?step=el.id:sec=el.id}
   // the last section can never reach the line, so claim it at the bottom of the page
-  if(innerHeight+scrollY>=document.documentElement.scrollHeight-4){sec=spyEls.filter(e=>e.tagName==="SECTION").pop().id;step=""}
+  if(innerHeight+scrollY>=document.documentElement.scrollHeight-4){sec=spyEls.filter(e=>e.tagName==="SECTION"&&e.offsetParent).pop().id;step=""}
   if(sec!=="flow")step="";
   if(sec+step===spyKey)return;spyKey=sec+step;
   tocLinks.forEach(a=>{const t=a.getAttribute("href").slice(1);a.classList.toggle("on",t===sec||t===step)});
+  document.querySelector(".tflow").classList.toggle("open",sec==="flow");
   // keep the active pill visible in the narrow-screen bar
   const act=tocLinks.find(a=>a.getAttribute("href")==="#"+sec);
   if(act&&innerWidth<=1100){const bar=act.closest("ol");bar.scrollTo({left:act.offsetLeft-bar.clientWidth/2+act.clientWidth/2,behavior:"smooth"})}
