@@ -1,6 +1,6 @@
 # Cross-Border Solution Architecture Playbook (v2)
 
-A single-page work sample by Syed Aakhib (Lead Engineer, Enterprise Integrations). It is a **proposed Solutions Architect approach for a fictional client**, not a record of past KYC delivery.
+A single-page work sample by Syed Aakhib. It is a **proposed Solutions Architect approach for a fictional client**, not a record of past KYC delivery.
 
 **Live page:** https://aakhib7.github.io/sa-playbook-v2/
 
