@@ -198,6 +198,51 @@ header > :nth-child(3){animation-delay:.16s}
 .seq .pkt{fill:#fff;stroke:var(--accent);stroke-width:3;filter:url(#glow)}
 .seq .msg.past line{stroke:var(--ink);opacity:.55}
 .seq .msg.past polygon{fill:var(--ink);opacity:.55}
+/* phone layout */
+.seqlist{display:none;list-style:none;margin:0;padding:0;flex-direction:column;gap:8px}
+.seqlist li{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);transition:border-color .3s, box-shadow .3s, opacity .3s}
+.seqlist .n{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-mono);font-size:12px;font-weight:600;background:var(--accent-soft);color:var(--accent)}
+.seqlist div{display:flex;flex-direction:column;gap:2px;min-width:0}
+.seqlist small{font-size:11.5px;color:var(--muted);font-weight:500}
+.seqlist b{font-size:14px;font-weight:600;line-height:1.35}
+.seqlist li.on{border-color:transparent;background:linear-gradient(var(--surface),var(--surface)) padding-box,var(--grad) border-box;border:1.5px solid transparent;box-shadow:0 8px 22px -14px color-mix(in srgb,var(--accent) 80%,transparent)}
+.seqlist li.on .n{background:var(--grad);color:#fff}
+.seqlist li.past .n{background:color-mix(in srgb,var(--accent) 35%,var(--line));color:#fff}
+@media (max-width:640px){
+  .wrap{padding-top:20px;gap:34px}
+  header{padding:26px 20px;border-radius:16px;gap:10px}
+  h1{font-size:28px}
+  h2{font-size:19px}
+  header .sub{font-size:15px}
+  .phases{gap:6px 6px;font-size:13px}
+  .phases span{padding:5px 11px}
+  .phases em{flex-basis:100%;margin:4px 0 0;font-size:16px}
+  .step{grid-template-columns:34px minmax(0,1fr);gap:0 12px}
+  .dot{width:34px;height:34px;font-size:13px}
+  .body{padding-bottom:24px}
+  .body h3{font-size:16px;gap:8px;align-items:flex-start}
+  .emo{font-size:18px}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .kpis div{padding:10px}
+  .demo{padding:14px;gap:14px}
+  .langs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .langs button{padding:7px 10px}
+  .bar{flex-wrap:wrap;margin-top:0}
+  .bar .lbl{flex:1}
+  .bar .seqcap{order:3;flex-basis:100%;text-align:start}
+  .seqwrap{display:none}
+  .seqlist{display:flex}
+  .kit .btn{width:100%}
+  .bpc{display:grid;grid-template-columns:40px minmax(0,1fr);gap:2px 12px;padding:12px}
+  .bpc .ic{grid-row:span 2}
+  .rgrid{gap:8px}
+  .regs{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .regs button{padding:10px 12px}
+  .rc{display:grid;grid-template-columns:36px minmax(0,1fr);gap:2px 12px;padding:12px}
+  .rc .ic{grid-row:span 2}
+}
+@media (max-width:360px){.kpis{grid-template-columns:minmax(0,1fr)}}
+
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   .js .step .dot,.js .step .body,.js .step .pf div,.js .step .kpis div,.js .reveal{opacity:1!important;transform:none!important}
@@ -283,6 +328,7 @@ header > :nth-child(3){animation-delay:.16s}
     <div class="stage">
       <div class="bar"><span class="lbl">Message flow</span><span class="seqcap" id="seqcap" aria-live="polite"></span><button class="btn" id="play" type="button">▶ Play</button></div>
       <div class="seqwrap"><svg class="seq" id="seq" viewBox="0 0 800 400" role="img" aria-label="KYC message flow"></svg></div>
+      <ol class="seqlist" id="seqlist" aria-label="KYC message flow"></ol>
       <div class="track" id="track" role="group" aria-label="Jump to step"></div>
       <div class="legend"><span>👁 Display only, never used to approve</span><span>🔒 Server-to-server: the only result the bank decides on</span><span>Arabic mirrors right-to-left</span></div>
     </div>
@@ -386,6 +432,10 @@ function drawSeq(on=-1){
   if(cap){const bb=cap.getBBox(),r=document.createElementNS("http://www.w3.org/2000/svg","rect");
     r.setAttribute("class","pill");r.setAttribute("x",bb.x-10);r.setAttribute("y",bb.y-3);r.setAttribute("width",bb.width+20);r.setAttribute("height",bb.height+6);r.setAttribute("rx",(bb.height+6)/2);
     cap.parentNode.insertBefore(r,cap);}
+  // Phone layout: the same flow as a vertical list, mirrored for RTL like the diagram
+  const rtl=RTL.has(L),arrow=rtl?"←":"→",list=$("seqlist");
+  list.dir=rtl?"rtl":"ltr";list.lang=LANG_TAG[L]||L;
+  list.innerHTML=MSG.map(([a,b,cap],i)=>`<li class="${i===on?"on":(on>=0&&i<on?"past":"")}"><span class="n">${i+1}</span><div><small>${ICON[a]} ${esc(tr(ACT[a]))} ${arrow} ${ICON[b]} ${esc(tr(ACT[b]))}</small><b>${esc(tr(cap))}${MARK[i]||""}</b></div></li>`).join("");
   $("track").querySelectorAll("button").forEach((t,i)=>{t.classList.toggle("cur",i===on);t.classList.toggle("done",on>=0&&i<on)});
 }
 function showStep(i){drawSeq(i);$("seqcap").textContent=`${i+1} / ${MSG.length} · ${tr(MSG[i][2])}`}
@@ -413,12 +463,12 @@ document.documentElement.classList.add("js");
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.25});
 document.querySelectorAll(".step,.reveal").forEach(el=>io.observe(el));
 let autoplayed=false;
-new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting&&!autoplayed){autoplayed=true;o.disconnect();setTimeout(play,400)}}),{threshold:.5}).observe($("seq"));
+new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting&&!autoplayed){autoplayed=true;o.disconnect();setTimeout(play,400)}}),{threshold:.3}).observe(document.querySelector(".demo"));
 document.querySelectorAll(".langs button").forEach(b=>b.onclick=()=>{L=b.dataset.l;render();document.querySelectorAll(".regs button").forEach(x=>x.classList.remove("on"))});
 document.querySelectorAll(".regs button").forEach(b=>b.onclick=()=>{
   L=b.dataset.l;render();
   document.querySelectorAll(".regs button").forEach(x=>x.classList.toggle("on",x===b));
-  $("seq").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"center"});
+  document.querySelector(".demo").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});
 });
 
 const WEBHOOK_BODY=JSON.stringify({transactionId:"SB-000184",workflowId:"sen_ekyc_v1",status:"auto_approved"},null,2);
