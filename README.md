@@ -8,7 +8,9 @@ A single-page work sample by Syed Aakhib. It is a **proposed Solutions Architect
 ## What's inside
 
 - **Delivery flow:** seven steps from discovery to post-go-live, each with the common problem and the proposed fix.
-- **Live demo:** a KYC message-flow diagram in seven languages (English, Vietnamese, Bahasa Indonesia, Japanese, Arabic with right-to-left layout, Portuguese and French).
+- **Discovery & POC:** eight discovery questions and a proposed POC plan with success criteria.
+- **Security & data:** a proposed data map, the security review pack, and the cloud vs on-premise residency choice.
+- **Live demo:** a seven-step KYC message-flow diagram in seven languages (English, Vietnamese, Bahasa Indonesia, Japanese, Arabic with right-to-left layout, Portuguese and French).
 - **API kit:** the four requests, plus a sample Postman file to download, using HyperKYC SDK terms.
 - **Key best practices:** for integration and for communication.
 - **Regions:** language and time difference from Bangalore for each market.
@@ -17,6 +19,7 @@ A single-page work sample by Syed Aakhib. It is a **proposed Solutions Architect
 
 - **Client:** Sen Bank is fictional.
 - **Postman kit:** a sample file, not a working HyperVerge integration. The access-token URL, results URL and webhook body are placeholders to replace from HyperVerge's docs.
+- **POC plan and data map:** proposed, to confirm with HyperVerge and the client.
 - **Support targets** (30-day hypercare, 3× peak load test, 30-minute P1 response, 48-hour root cause): proposed targets to agree with the client, not measured results.
 - **Verified:** SDK terms and status values come from HyperVerge's public Flutter SDK (`hyperkyc_flutter` on pub.dev).
 - **Translations:** AI-drafted and not yet reviewed by a native speaker.
