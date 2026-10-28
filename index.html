@@ -25,7 +25,31 @@
   --accent:#a585ef; --accent-2:#e07fe0; --accent-soft:#251b45; --ok:#55c487; --bad:#f2786b; color-scheme:dark}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55}
-.wrap{max-width:1000px;margin:0 auto;padding:48px max(16px, env(safe-area-inset-left,0px)) 64px;display:flex;flex-direction:column;gap:44px}
+.layout{display:grid;grid-template-columns:200px minmax(0,1000px);gap:36px;justify-content:center;padding:0 24px}
+.wrap{min-width:0;padding:48px 0 64px;display:flex;flex-direction:column;gap:44px}
+section,.step{scroll-margin-top:24px}
+.toc{position:sticky;top:0;align-self:start;max-height:100vh;overflow-y:auto;padding:48px 0 24px;font-size:13.5px}
+.toct{display:block;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 10px 12px}
+.toc ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.toc a{display:block;padding:6px 12px;border-radius:9px;color:var(--ink);text-decoration:none;font-weight:600;border-left:2px solid transparent;transition:background .2s, color .2s, border-color .2s}
+.toc a:hover{background:var(--accent-soft);color:var(--accent)}
+.toc a.on{background:var(--accent-soft);color:var(--accent);border-left-color:var(--accent)}
+.toc .sub{margin:2px 0 4px 10px;padding-left:6px;border-left:1px solid var(--line)}
+.toc .sub a{font-weight:500;font-size:12.5px;padding:4px 10px;color:var(--muted)}
+.toc .sub a.on{color:var(--accent)}
+.toc a:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+header h1{padding-right:150px}
+@media (max-width:1100px){
+  .layout{grid-template-columns:minmax(0,1fr);gap:0;padding:0 max(16px, env(safe-area-inset-left,0px))}
+  .toc{position:sticky;top:0;z-index:20;max-height:none;overflow:visible;margin:0 calc(-1 * max(16px, env(safe-area-inset-left,0px)));padding:10px max(16px, env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .toct,.toc .sub{display:none}
+  .toc>ol{flex-direction:row;gap:6px;overflow-x:auto;scrollbar-width:none}
+  .toc>ol::-webkit-scrollbar{display:none}
+  .toc a{white-space:nowrap;border-left:0;padding:6px 12px;border-radius:99px;background:var(--surface);border:1px solid var(--line)}
+  .toc a.on{border-color:var(--accent)}
+  .wrap{padding-top:24px}
+  section,.step{scroll-margin-top:70px}
+}
 h1,h2,h3,p{margin:0}
 h1{font-size:clamp(30px,4.6vw,48px);line-height:1.08;letter-spacing:-.025em;font-weight:800;text-wrap:balance}
 h2{font-size:21px;font-weight:700;letter-spacing:-.01em}
@@ -225,7 +249,11 @@ header > :nth-child(3){animation-delay:.16s}
 .seqlist li.past .n{background:color-mix(in srgb,var(--accent) 35%,var(--line));color:#fff}
 @media (max-width:640px){
   .wrap{padding-top:20px;gap:34px}
-  header{padding:26px 20px;border-radius:16px;gap:10px}
+  .layout{padding:0 16px}
+  header{padding:70px 20px 26px;border-radius:16px;gap:10px}
+  header h1{padding-right:0}
+  .hero-btn{top:16px;right:16px;font-size:13px;padding:7px 14px}
+  .hero-btn span{display:none}
   h1{font-size:28px}
   h2{font-size:19px}
   header .sub{font-size:15px}
@@ -259,9 +287,7 @@ header > :nth-child(3){animation-delay:.16s}
 @media (max-width:360px){.kpis{grid-template-columns:minmax(0,1fr)}}
 
 /* PDF button + print layout */
-.hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:6px}
-.hero-actions span{font-size:13px;color:#d9c8ff}
-.hero-btn{font-size:14px;font-weight:700;color:#6a3fb9;background:#fff;padding:9px 18px;border-radius:999px;text-decoration:none;box-shadow:0 8px 20px -10px rgba(0,0,0,.6);transition:transform .15s ease, box-shadow .15s}
+.hero-btn{position:absolute;top:22px;right:22px;z-index:2;font-size:14px;font-weight:700;color:#6a3fb9;background:#fff;padding:9px 18px;border-radius:999px;text-decoration:none;box-shadow:0 8px 20px -10px rgba(0,0,0,.6);transition:transform .15s ease, box-shadow .15s}
 .hero-btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px -10px rgba(0,0,0,.7)}
 .hero-btn:focus-visible{outline:2px solid #fff;outline-offset:3px}
 @media print{
@@ -271,9 +297,11 @@ header > :nth-child(3){animation-delay:.16s}
     --accent:#6a3fb9; --accent-2:#ad52ad; --accent-soft:#f2ecff; --ok:#1f7a4a; --bad:#b42318; color-scheme:light}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact;animation:none!important;transition:none!important}
   body{background:#fff;font-size:13px}
+  .layout{display:block;padding:0}
   .wrap{max-width:none;padding:0;gap:22px}
+  header h1{padding-right:0}
   header{padding:26px 28px}
-  .hero-actions,#play,.track,.langcol,.bar .seqcap,.kitd .btn,.live::before{display:none!important}
+  .hero-btn,.toc,#play,.track,.langcol,.bar .seqcap,.kitd .btn,.live::before{display:none!important}
   .js .step .dot,.js .step .body,.js .step .pf div,.js .step .kpis div,.js .reveal,.js .step .line,.role,header>*{opacity:1!important;transform:none!important}
   .demo{grid-template-columns:minmax(0,1fr);box-shadow:none}
   .seqwrap{display:block!important;overflow:visible}
@@ -293,15 +321,36 @@ header > :nth-child(3){animation-delay:.16s}
 </style>
 </head>
 <body>
+<div class="layout">
+<nav class="toc" aria-label="Contents">
+  <span class="toct">Contents</span>
+  <ol>
+    <li><a href="#role">Role at a glance</a></li>
+    <li><a href="#flow">Delivery flow</a>
+      <ol class="sub">
+        <li><a href="#step-1">1 · Discovery</a></li>
+        <li><a href="#step-2">2 · Requirements</a></li>
+        <li><a href="#step-3">3 · Solution design</a></li>
+        <li><a href="#step-4">4 · Integration</a></li>
+        <li><a href="#step-5">5 · Delivery cadence</a></li>
+        <li><a href="#step-6">6 · Security &amp; go-live</a></li>
+        <li><a href="#step-7">7 · Post-go-live</a></li>
+      </ol></li>
+    <li><a href="#demo">Live demo</a></li>
+    <li><a href="#api">API kit</a></li>
+    <li><a href="#practices">Best practices</a></li>
+    <li><a href="#regions">Regions</a></li>
+  </ol>
+</nav>
 <div class="wrap">
 
 <header>
   <h1>Cross-Border Solution Architecture Playbook</h1>
   <p class="sub">How I would approach taking enterprise and BFSI clients from first call to scale, across languages, cultures and time zones.</p>
-  <div class="hero-actions"><a class="hero-btn" href="cross-border-sa-playbook.pdf" download>⬇ Download as PDF</a><span>To read offline or print</span></div>
+  <a class="hero-btn" href="cross-border-sa-playbook.pdf" download title="Download the playbook as a PDF to read offline or print">⬇ <span>Download </span>PDF</a>
 </header>
 
-<section class="role">
+<section class="role" id="role">
   <p class="phases"><span>Discover</span><i>→</i><span>Design</span><i>→</i><span>Integrate</span><i>→</i><span>Launch</span><i>→</i><span>Optimize</span><em>One architect, one solution, end to end.</em></p>
   <div class="rgrid">
     <div class="rc"><span class="ic">🧭</span><b>Solution architecture &amp; integration</b><p>End-to-end solutions and workflows, from discovery to post-go-live.</p></div>
@@ -312,34 +361,34 @@ header > :nth-child(3){animation-delay:.16s}
   </div>
 </section>
 
-<section>
+<section id="flow">
   <h2>Delivery flow</h2>
   <ol class="flow">
-    <li class="step"><div class="rail"><span class="dot">1</span><span class="line"></span></div>
+    <li class="step" id="step-1"><div class="rail"><span class="dot">1</span><span class="line"></span></div>
       <div class="body"><h3><span class="emo" aria-hidden="true">🔍</span>Discovery: know the client and the region</h3><span class="tag">Regional nuance · communication styles</span>
         <div class="pf"><div class="p"><b>✕</b><span>A “yes” on the call can mean “I heard you”, not “we agree”.</span></div>
         <div class="f"><b>✓</b><span>Map stakeholders, systems and constraints, plus language, time overlap and data law. Meet the local partner.</span></div></div></div></li>
-    <li class="step"><div class="rail"><span class="dot">2</span><span class="line"></span></div>
+    <li class="step" id="step-2"><div class="rail"><span class="dot">2</span><span class="line"></span></div>
       <div class="body"><h3><span class="emo" aria-hidden="true">📝</span>Requirements: agree the scope and the words</h3><span class="tag">Terminology gaps · translation teams</span>
         <div class="pf"><div class="p"><b>✕</b><span>“Webhook” translated three ways in three documents.</span></div>
         <div class="f"><b>✓</b><span>A signed-off scope and one shared glossary. AI drafts translations, a native-speaking partner reviews them.</span></div></div></div></li>
-    <li class="step"><div class="rail"><span class="dot">3</span><span class="line"></span></div>
+    <li class="step" id="step-3"><div class="rail"><span class="dot">3</span><span class="line"></span></div>
       <div class="body"><h3><span class="emo" aria-hidden="true">🗺️</span>Solution design: a visual blueprint</h3><span class="tag">Visual integration blueprints</span>
         <div class="pf"><div class="p"><b>✕</b><span>Long English documents nobody finishes reading.</span></div>
         <div class="f"><b>✓</b><span>Diagrams and code first, short sentences second. See the live demo below.</span></div></div></div></li>
-    <li class="step"><div class="rail"><span class="dot">4</span><span class="line"></span></div>
+    <li class="step" id="step-4"><div class="rail"><span class="dot">4</span><span class="line"></span></div>
       <div class="body"><h3><span class="emo" aria-hidden="true">🔌</span>Integration: an API kit that runs</h3><span class="tag">Standardized API docs · Postman</span>
         <div class="pf"><div class="p"><b>✕</b><span>Every team reads the API docs differently.</span></div>
         <div class="f"><b>✓</b><span>A shared Postman template, filled with the real endpoints during integration. Engineers test instead of reading.</span></div></div></div></li>
-    <li class="step"><div class="rail"><span class="dot">5</span><span class="line"></span></div>
+    <li class="step" id="step-5"><div class="rail"><span class="dot">5</span><span class="line"></span></div>
       <div class="body"><h3><span class="emo" aria-hidden="true">🔄</span>Delivery cadence: async first, live in the overlap</h3><span class="tag">Async loops · time zone friction · high-context cultures</span>
         <div class="pf"><div class="p"><b>✕</b><span>One question takes three days of email. Blockers are never said in the group call.</span></div>
         <div class="f"><b>✓</b><span>Short calls in shared hours, a written recap in both languages, and a 1:1 with the tech lead.</span></div></div></div></li>
-    <li class="step"><div class="rail"><span class="dot">6</span><span class="line"></span></div>
+    <li class="step" id="step-6"><div class="rail"><span class="dot">6</span><span class="line"></span></div>
       <div class="body"><h3><span class="emo" aria-hidden="true">🛡️</span>Security, compliance and go-live</h3><span class="tag">Local data privacy mandates</span>
         <div class="pf"><div class="p"><b>✕</b><span>Go-live stalls while security asks where the selfies are stored.</span></div>
         <div class="f"><b>✓</b><span>Bring a data map, the local rules and the security documents to the first security call.</span></div></div></div></li>
-    <li class="step"><div class="rail"><span class="dot">7</span><span class="line"></span></div>
+    <li class="step" id="step-7"><div class="rail"><span class="dot">7</span><span class="line"></span></div>
       <div class="body"><h3><span class="emo" aria-hidden="true">📈</span>Post-go-live: hypercare, scale and support</h3><span class="tag">Troubleshooting · optimization · long-term adoption</span>
         <div class="pf"><div class="p"><b>✕</b><span>After launch, drop-offs and slow responses go unnoticed until customers complain.</span></div>
         <div class="f"><b>✓</b><span>Hypercare, live dashboards with alerts, and a named escalation path in the client's language.</span></div></div>
@@ -353,7 +402,7 @@ header > :nth-child(3){animation-delay:.16s}
   </ol>
 </section>
 
-<section class="reveal">
+<section class="reveal" id="demo">
   <h2>Live demo: the blueprint, in their language<span class="live">LIVE</span></h2>
   <div class="card demo">
     <div class="langcol">
@@ -378,7 +427,7 @@ header > :nth-child(3){animation-delay:.16s}
   </div>
 </section>
 
-<section class="reveal">
+<section class="reveal" id="api">
   <h2>API kit</h2>
   <div class="card kit">
     <div class="kitl">
@@ -398,7 +447,7 @@ header > :nth-child(3){animation-delay:.16s}
   </div>
 </section>
 
-<section class="reveal bp">
+<section class="reveal bp" id="practices">
   <h2>Key best practices</h2>
   <span class="lbl">Integration</span>
   <div class="bpgrid">
@@ -416,7 +465,7 @@ header > :nth-child(3){animation-delay:.16s}
   </div>
 </section>
 
-<section class="reveal">
+<section class="reveal" id="regions">
   <h2>Regions I plan for</h2>
   <div class="regs">
     <button type="button" data-l="vi"><b>Vietnam</b><span>Vietnamese</span><em>IST +1:30</em></button>
@@ -432,6 +481,7 @@ header > :nth-child(3){animation-delay:.16s}
 </section>
 
 <p class="note">Proposed solution for a fictional client, Sen Bank; not a record of past KYC delivery. SDK terms and status values follow HyperVerge's public Flutter SDK (hyperkyc_flutter on pub.dev); endpoint URLs and the webhook payload are placeholders. Translations are AI-drafted and not yet reviewed by a native speaker. Independent work sample styled after HyperVerge's public site; not an official HyperVerge page.</p>
+</div>
 </div>
 
 <script>
@@ -554,6 +604,25 @@ $("postman").onclick=()=>{
   document.body.appendChild(a);a.click();a.remove();
   setTimeout(()=>URL.revokeObjectURL(a.href),1000);
 };
+// Contents: highlight the section, and step, currently on screen
+const tocLinks=[...document.querySelectorAll(".toc a")];
+const spyEls=[...document.querySelectorAll("section[id],.step[id]")];
+let spyKey="";
+function spyUpdate(){
+  const line=Math.min(innerHeight*0.3,140);let sec="",step="";
+  for(const el of spyEls){if(el.getBoundingClientRect().top>line)continue;el.classList.contains("step")?step=el.id:sec=el.id}
+  // the last section can never reach the line, so claim it at the bottom of the page
+  if(innerHeight+scrollY>=document.documentElement.scrollHeight-4){sec=spyEls.filter(e=>e.tagName==="SECTION").pop().id;step=""}
+  if(sec!=="flow")step="";
+  if(sec+step===spyKey)return;spyKey=sec+step;
+  tocLinks.forEach(a=>{const t=a.getAttribute("href").slice(1);a.classList.toggle("on",t===sec||t===step)});
+  // keep the active pill visible in the narrow-screen bar
+  const act=tocLinks.find(a=>a.getAttribute("href")==="#"+sec);
+  if(act&&innerWidth<=1100){const bar=act.closest("ol");bar.scrollTo({left:act.offsetLeft-bar.clientWidth/2+act.clientWidth/2,behavior:"smooth"})}
+}
+addEventListener("scroll",spyUpdate,{passive:true});
+addEventListener("resize",spyUpdate);
+spyUpdate();
 render();
 </script>
 </body>
