@@ -225,6 +225,32 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .fb p:first-of-type i{flex-basis:100%}
 @media print{.fb,.donew{break-inside:avoid}}
 
+/* delivery plan and go-live checklist */
+.gantt{display:flex;flex-direction:column;gap:4px;overflow-x:auto}
+.gr{display:grid;grid-template-columns:230px minmax(360px,1fr);gap:14px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.gr:last-child{border-bottom:0}
+.gh{padding:0 0 6px}
+.gl{display:flex;flex-direction:column;gap:1px;font-size:12.5px;color:var(--muted)}
+.gl b{font-size:14px;color:var(--ink)}
+.gl em{font-style:normal;font-weight:700;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);margin-right:4px}
+.gt{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:4px;align-items:center;background:repeating-linear-gradient(90deg,transparent 0 calc(10% - 1px),var(--line) calc(10% - 1px) 10%);min-height:30px}
+.gh .gt{background:none;min-height:0}
+.gh .gt span{font-family:var(--f-mono);font-size:11px;color:var(--muted);text-align:center}
+.gb{height:26px;border-radius:99px;background:var(--grad);color:#fff;font-family:var(--f-mono);font-size:11px;font-weight:600;display:grid;place-items:center;white-space:nowrap;box-shadow:0 6px 14px -8px color-mix(in srgb,var(--accent) 80%,transparent)}
+#plan .gr:nth-child(5) .gb{background:repeating-linear-gradient(135deg,#6a3fb9 0 8px,#885fd9 8px 16px)}
+@media (max-width:640px){.gr{grid-template-columns:minmax(0,1fr);gap:6px}.gh .gl{display:none}.gt{min-width:0}}
+.glhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px}
+.glcount{font-family:var(--f-mono);font-size:13px;font-weight:700;color:#fff;background:var(--grad);padding:3px 12px;border-radius:99px}
+.glcount.all{background:var(--ok)}
+.glist{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 18px;counter-reset:g}
+@media (max-width:760px){.glist{grid-template-columns:minmax(0,1fr)}}
+.glist label{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border-radius:10px;cursor:pointer;font-size:14px;transition:background .2s}
+.glist label:hover{background:var(--accent-soft)}
+.glist input{width:18px;height:18px;margin:1px 0 0;flex:none;accent-color:var(--ok)}
+.glist input:checked+span{color:var(--muted);text-decoration:line-through}
+.donew a{color:var(--accent)}
+@media print{.gr,.glist li{break-inside:avoid}.gantt{overflow:visible}}
+
 /* best practices */
 .bp .lbl{margin-top:4px}
 .bpgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
@@ -384,8 +410,10 @@ header > :nth-child(3){animation-delay:.16s}
         <li><a href="#step-6">6 · Security &amp; go-live</a></li>
         <li><a href="#step-7">7 · Post-go-live</a></li>
       </ol></li>
+    <li><a href="#plan">Delivery plan</a></li>
     <li><a href="#poc">Discovery &amp; POC</a></li>
     <li><a href="#security">Security &amp; data</a></li>
+    <li><a href="#golive">Go-live checklist</a></li>
     <li><a href="#fallbacks">Failure handling</a></li>
     <li><a href="#demo">Live demo</a></li>
     <li><a href="#api">API kit</a></li>
@@ -444,7 +472,7 @@ header > :nth-child(3){animation-delay:.16s}
       <div class="body"><h3><span class="emo" aria-hidden="true">🛡️</span>Security, compliance and go-live</h3><span class="tag">Local data privacy mandates</span>
         <div class="pf"><div class="p"><b>✕</b><span>Go-live stalls while security asks where the selfies are stored.</span></div>
         <div class="f"><b>✓</b><span>Bring a data map, the local rules and the security documents to the first security call.</span></div></div>
-        <p class="donew"><span aria-hidden="true">🏁</span><b>Done when:</b> Security sign-off is in and the go-live checklist is complete.</p></div></li>
+        <p class="donew"><span aria-hidden="true">🏁</span><b>Done when:</b> Security sign-off is in and the <a href="#golive">go-live checklist</a> is complete.</p></div></li>
     <li class="step" id="step-7"><div class="rail"><span class="dot">7</span><span class="line"></span></div>
       <div class="body"><h3><span class="emo" aria-hidden="true">📈</span>Post-go-live: hypercare, scale and support</h3><span class="tag">Troubleshooting · optimization · long-term adoption</span>
         <div class="pf"><div class="p"><b>✕</b><span>After launch, drop-offs and slow responses go unnoticed until customers complain.</span></div>
@@ -458,6 +486,21 @@ header > :nth-child(3){animation-delay:.16s}
         </div>
         <p class="donew"><span aria-hidden="true">🏁</span><b>Done when:</b> 30 days with no P1 issues, and metrics holding at the agreed targets.</p></div></li>
   </ol>
+</section>
+
+<section class="reveal" id="plan">
+  <h2>Delivery plan <em class="pill">Proposed</em></h2>
+  <p class="note">A typical 10-week path for one bank. The security review runs alongside the build, so it never blocks go-live at the end.</p>
+  <div class="card gantt">
+    <div class="gr gh"><div class="gl"></div><div class="gt"><span>W1</span><span>W2</span><span>W3</span><span>W4</span><span>W5</span><span>W6</span><span>W7</span><span>W8</span><span>W9</span><span>W10</span></div></div>
+      <div class="gr"><div class="gl"><b>Discovery</b><span><em>Lead</em> SA</span><span><em>With</em> Bank tech lead · Sales</span></div><div class="gt"><span class="gb" style="grid-column:1 / 2">W1</span></div></div>
+      <div class="gr"><div class="gl"><b>Requirements &amp; glossary</b><span><em>Lead</em> SA</span><span><em>With</em> Bank product · Local partner</span></div><div class="gt"><span class="gb" style="grid-column:2 / 3">W2</span></div></div>
+      <div class="gr"><div class="gl"><b>Solution design</b><span><em>Lead</em> SA</span><span><em>With</em> Bank architect · HyperVerge engineering</span></div><div class="gt"><span class="gb" style="grid-column:3 / 4">W3</span></div></div>
+      <div class="gr"><div class="gl"><b>Security review</b><span><em>Lead</em> Bank InfoSec</span><span><em>With</em> HyperVerge security · SA</span></div><div class="gt"><span class="gb" style="grid-column:3 / 7">W3–6</span></div></div>
+      <div class="gr"><div class="gl"><b>Integration &amp; UAT</b><span><em>Lead</em> Bank engineers</span><span><em>With</em> SA · HyperVerge support</span></div><div class="gt"><span class="gb" style="grid-column:4 / 6">W4–5</span></div></div>
+      <div class="gr"><div class="gl"><b>Go-live</b><span><em>Lead</em> Bank</span><span><em>With</em> SA · Customer Success</span></div><div class="gt"><span class="gb" style="grid-column:6 / 7">W6</span></div></div>
+      <div class="gr"><div class="gl"><b>Hypercare</b><span><em>Lead</em> SA</span><span><em>With</em> Customer Success · Bank ops</span></div><div class="gt"><span class="gb" style="grid-column:7 / 11">W7–10</span></div></div>
+  </div>
 </section>
 
 <section class="reveal" id="poc">
@@ -528,6 +571,25 @@ header > :nth-child(3){animation-delay:.16s}
       </div>
       <p class="note">Chosen by the regulator's rules and the bank's policy, then recorded in the decision log.</p>
     </div>
+  </div>
+</section>
+
+<section class="reveal" id="golive">
+  <h2>Go-live checklist</h2>
+  <div class="card">
+    <div class="glhead"><p class="note">All ten ticked before launch. Tick them off to try it.</p><span class="glcount" id="glcount">0 / 10</span></div>
+    <ol class="glist" id="glist">
+      <li><label><input type="checkbox"><span>Production appId / appKey live on the server only; UAT keys removed from app builds</span></label></li>
+      <li><label><input type="checkbox"><span>accessToken generated server-side; nothing secret ships in the app</span></label></li>
+      <li><label><input type="checkbox"><span>Webhook endpoint live, authenticity check on, and it answers 200 quickly</span></label></li>
+      <li><label><input type="checkbox"><span>Duplicate and late webhooks tested; the results API fallback works</span></label></li>
+      <li><label><input type="checkbox"><span>Approval decided from the server-side result, never the HyperKycResult status</span></label></li>
+      <li><label><input type="checkbox"><span>Workflow tested on low-end Android, iOS and web, on slow networks</span></label></li>
+      <li><label><input type="checkbox"><span>Every local ID card version passes in UAT</span></label></li>
+      <li><label><input type="checkbox"><span>Consent screen approved by the bank's legal team, in the local language</span></label></li>
+      <li><label><input type="checkbox"><span>Data residency and retention configured exactly as signed off</span></label></li>
+      <li><label><input type="checkbox"><span>Dashboards, alerts and the escalation contact list ready; hypercare starts</span></label></li>
+    </ol>
   </div>
 </section>
 
@@ -748,6 +810,10 @@ $("postman").onclick=()=>{
   document.body.appendChild(a);a.click();a.remove();
   setTimeout(()=>URL.revokeObjectURL(a.href),1000);
 };
+// Go-live checklist counter (not saved; resets on reload)
+const glBoxes=[...document.querySelectorAll("#glist input")];
+glBoxes.forEach(b=>b.onchange=()=>{const n=glBoxes.filter(x=>x.checked).length;$("glcount").textContent=`${n} / ${glBoxes.length}`;$("glcount").classList.toggle("all",n===glBoxes.length)});
+
 // Contents: highlight the section, and step, currently on screen
 const tocLinks=[...document.querySelectorAll(".toc a")];
 const spyEls=[...document.querySelectorAll("section[id],.step[id]")];
