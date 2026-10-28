@@ -312,6 +312,57 @@ header > :nth-child(3){animation-delay:.16s}
 .seq .pkt{fill:#fff;stroke:var(--accent);stroke-width:3;filter:url(#glow)}
 .seq .msg.past line{stroke:var(--ink);opacity:.55}
 .seq .msg.past polygon{fill:var(--ink);opacity:.55}
+/* compact density: tighter spacing everywhere; phone rules below still win */
+.wrap{gap:30px;padding:30px 0 44px}
+section{gap:12px}
+h2{font-size:19px}
+.card{padding:16px}
+header{padding:clamp(22px,3.5vw,34px) clamp(22px,4vw,40px);gap:10px}
+h1{font-size:clamp(28px,3.6vw,40px)}
+.toc{padding-top:30px}
+.role{gap:10px}
+.rgrid{gap:8px}
+.rc{padding:12px;gap:4px}
+.rc .ic{width:32px;height:32px;font-size:16px;border-radius:10px}
+.step{grid-template-columns:36px minmax(0,1fr);gap:0 14px}
+.dot{width:36px;height:36px;font-size:13px}
+.line{margin:4px 0}
+.body{padding:2px 0 16px;gap:6px}
+.body h3{font-size:16px;display:block;line-height:1.45}
+.body h3 .tag{display:inline-block;vertical-align:2px;margin-left:8px;font-size:11px;font-weight:600;padding:2px 8px;line-height:1.4}
+.emo{display:inline-block;font-size:18px;margin-right:8px;vertical-align:-2px}
+.pf{gap:8px}
+.pf div{padding:7px 10px;font-size:13.5px}
+.donew{display:block;padding:5px 10px;font-size:12.5px}
+.donew span{margin-right:6px}
+.donew b{margin-right:4px}
+.kpis{gap:8px}
+.kpis div{padding:9px 10px}
+.gantt{padding:10px 16px}
+.duo{gap:12px}
+.qlist{gap:5px;font-size:13.5px}
+.qlist li{grid-template-columns:22px minmax(0,1fr)}
+.qlist li::before{width:22px;height:22px;font-size:11px}
+.crit{gap:6px}
+.crit div,.opts div{padding:8px 10px}
+.ticks{gap:4px;font-size:13.5px}
+.dm td{padding:7px 8px}
+.dm th{padding:6px 8px}
+.glist{gap:2px 16px}
+.glist label{padding:5px 8px;font-size:13.5px}
+.fbgrid{gap:10px}
+.fb{padding:12px;gap:6px}
+.demo{gap:18px;padding:16px}
+.langs button{padding:5px 12px}
+.kit{gap:12px}
+.reqs li{padding:7px 10px}
+.bpgrid{gap:10px}
+.bpc{display:grid;grid-template-columns:40px minmax(0,1fr);gap:2px 12px;padding:12px}
+.bpc .ic{grid-row:span 2;width:40px;height:40px}
+.bp .lbl{margin-top:0}
+.regs{grid-template-columns:repeat(auto-fill,minmax(min(100%,150px),1fr));gap:8px}
+.regs button{padding:9px 12px}
+
 /* phone layout */
 .seqlist{display:none;list-style:none;margin:0;padding:0;flex-direction:column;gap:8px}
 .seqlist li{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);transition:border-color .3s, box-shadow .3s, opacity .3s}
@@ -338,7 +389,7 @@ header > :nth-child(3){animation-delay:.16s}
   .step{grid-template-columns:34px minmax(0,1fr);gap:0 12px}
   .dot{width:34px;height:34px;font-size:13px}
   .body{padding-bottom:24px}
-  .body h3{font-size:16px;gap:8px;align-items:flex-start}
+  .body h3{font-size:16px}
   .emo{font-size:18px}
   .kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
   .kpis div{padding:10px}
@@ -445,37 +496,37 @@ header > :nth-child(3){animation-delay:.16s}
   <h2>Delivery flow</h2>
   <ol class="flow">
     <li class="step" id="step-1"><div class="rail"><span class="dot">1</span><span class="line"></span></div>
-      <div class="body"><h3><span class="emo" aria-hidden="true">🔍</span>Discovery: know the client and the region</h3><span class="tag">Regional nuance · communication styles</span>
+      <div class="body"><h3><span class="emo" aria-hidden="true">🔍</span>Discovery: know the client and the region<span class="tag">Regional nuance · communication styles</span></h3>
         <div class="pf"><div class="p"><b>✕</b><span>A “yes” on the call can mean “I heard you”, not “we agree”.</span></div>
         <div class="f"><b>✓</b><span>Map stakeholders, systems and constraints, plus language, time overlap and data law. Meet the local partner.</span></div></div>
         <p class="donew"><span aria-hidden="true">🏁</span><b>Done when:</b> Stakeholders, systems, volumes and the data law are written down and confirmed by the client.</p></div></li>
     <li class="step" id="step-2"><div class="rail"><span class="dot">2</span><span class="line"></span></div>
-      <div class="body"><h3><span class="emo" aria-hidden="true">📝</span>Requirements: agree the scope and the words</h3><span class="tag">Terminology gaps · translation teams</span>
+      <div class="body"><h3><span class="emo" aria-hidden="true">📝</span>Requirements: agree the scope and the words<span class="tag">Terminology gaps · translation teams</span></h3>
         <div class="pf"><div class="p"><b>✕</b><span>“Webhook” translated three ways in three documents.</span></div>
         <div class="f"><b>✓</b><span>A signed-off scope and one shared glossary. AI drafts translations, a native-speaking partner reviews them.</span></div></div>
         <p class="donew"><span aria-hidden="true">🏁</span><b>Done when:</b> Scope is signed off and the glossary is locked in both languages.</p></div></li>
     <li class="step" id="step-3"><div class="rail"><span class="dot">3</span><span class="line"></span></div>
-      <div class="body"><h3><span class="emo" aria-hidden="true">🗺️</span>Solution design: a visual blueprint</h3><span class="tag">Visual integration blueprints</span>
+      <div class="body"><h3><span class="emo" aria-hidden="true">🗺️</span>Solution design: a visual blueprint<span class="tag">Visual integration blueprints</span></h3>
         <div class="pf"><div class="p"><b>✕</b><span>Long English documents nobody finishes reading.</span></div>
         <div class="f"><b>✓</b><span>Diagrams and code first, short sentences second. See the live demo below.</span></div></div>
         <p class="donew"><span aria-hidden="true">🏁</span><b>Done when:</b> The client's tech lead approves the blueprint and the data flow.</p></div></li>
     <li class="step" id="step-4"><div class="rail"><span class="dot">4</span><span class="line"></span></div>
-      <div class="body"><h3><span class="emo" aria-hidden="true">🔌</span>Integration: an API kit that runs</h3><span class="tag">Standardized API docs · Postman</span>
+      <div class="body"><h3><span class="emo" aria-hidden="true">🔌</span>Integration: an API kit that runs<span class="tag">Standardized API docs · Postman</span></h3>
         <div class="pf"><div class="p"><b>✕</b><span>Every team reads the API docs differently.</span></div>
         <div class="f"><b>✓</b><span>A shared Postman template, filled with the real endpoints during integration. Engineers test instead of reading.</span></div></div>
         <p class="donew"><span aria-hidden="true">🏁</span><b>Done when:</b> Every Postman request passes in UAT, and duplicate webhooks are handled safely.</p></div></li>
     <li class="step" id="step-5"><div class="rail"><span class="dot">5</span><span class="line"></span></div>
-      <div class="body"><h3><span class="emo" aria-hidden="true">🔄</span>Delivery cadence: async first, live in the overlap</h3><span class="tag">Async loops · time zone friction · high-context cultures</span>
+      <div class="body"><h3><span class="emo" aria-hidden="true">🔄</span>Delivery cadence: async first, live in the overlap<span class="tag">Async loops · time zone friction · high-context cultures</span></h3>
         <div class="pf"><div class="p"><b>✕</b><span>One question takes three days of email. Blockers are never said in the group call.</span></div>
         <div class="f"><b>✓</b><span>Short calls in shared hours, a written recap in both languages, and a 1:1 with the tech lead.</span></div></div>
         <p class="donew"><span aria-hidden="true">🏁</span><b>Done when:</b> Every open question has an owner and a date in the shared log.</p></div></li>
     <li class="step" id="step-6"><div class="rail"><span class="dot">6</span><span class="line"></span></div>
-      <div class="body"><h3><span class="emo" aria-hidden="true">🛡️</span>Security, compliance and go-live</h3><span class="tag">Local data privacy mandates</span>
+      <div class="body"><h3><span class="emo" aria-hidden="true">🛡️</span>Security, compliance and go-live<span class="tag">Local data privacy mandates</span></h3>
         <div class="pf"><div class="p"><b>✕</b><span>Go-live stalls while security asks where the selfies are stored.</span></div>
         <div class="f"><b>✓</b><span>Bring a data map, the local rules and the security documents to the first security call.</span></div></div>
         <p class="donew"><span aria-hidden="true">🏁</span><b>Done when:</b> Security sign-off is in and the <a href="#golive">go-live checklist</a> is complete.</p></div></li>
     <li class="step" id="step-7"><div class="rail"><span class="dot">7</span><span class="line"></span></div>
-      <div class="body"><h3><span class="emo" aria-hidden="true">📈</span>Post-go-live: hypercare, scale and support</h3><span class="tag">Troubleshooting · optimization · long-term adoption</span>
+      <div class="body"><h3><span class="emo" aria-hidden="true">📈</span>Post-go-live: hypercare, scale and support<span class="tag">Troubleshooting · optimization · long-term adoption</span></h3>
         <div class="pf"><div class="p"><b>✕</b><span>After launch, drop-offs and slow responses go unnoticed until customers complain.</span></div>
         <div class="f"><b>✓</b><span>Hypercare, live dashboards with alerts, and a named escalation path in the client's language.</span></div></div>
         <span class="flag">Proposed targets · to agree with the client in the SLA</span>
