@@ -85,10 +85,6 @@ section{display:flex;flex-direction:column;gap:16px}
 .flag{align-self:flex-start;font-size:12px;font-weight:600;color:#8a5a00;background:#fff3d6;border:1px dashed #e9bf5c;padding:3px 10px;border-radius:8px}
 :root[data-theme="dark"] .flag{color:#f5c869;background:#3a2c0c;border-color:#6b5218}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .flag{color:#f5c869;background:#3a2c0c;border-color:#6b5218}}
-.disclaim{align-self:flex-start;font-size:12.5px;font-weight:600;color:#fff;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);padding:4px 12px;border-radius:99px}
-.ph{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--muted)}
-.ph li{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}
-.ph code{font-family:var(--f-mono);font-size:12px;color:var(--ink);background:var(--accent-soft);padding:1px 6px;border-radius:5px}
 .kit > div b{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
 .kpis p{color:var(--muted);font-size:13px}
 .js .step .kpis div{opacity:0;transform:translateY(10px);transition:opacity .45s ease, transform .45s ease}
@@ -126,8 +122,19 @@ section{display:flex;flex-direction:column;gap:16px}
 .langs button[aria-pressed="true"] small{color:#ece4ff}
 .langs button:not([aria-pressed="true"]):hover{background:var(--accent-soft)}
 .langs button:hover{color:var(--ink)}
-.kit{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;justify-content:space-between}
-.kit > div{display:flex;flex-direction:column;gap:4px;max-width:560px}
+.kit{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:20px 28px;align-items:start}
+@media (max-width:820px){.kit{grid-template-columns:minmax(0,1fr)}}
+.kitl{display:flex;flex-direction:column;gap:8px}
+.reqs{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-direction:column;gap:6px;counter-reset:r}
+.reqs li{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border-radius:10px;background:var(--bg);border:1px solid var(--line);font-size:14px;font-weight:500}
+.reqs .m{flex:none;font-family:var(--f-mono);font-size:11px;font-weight:700;color:#fff;background:var(--grad);padding:2px 7px;border-radius:6px;margin-top:1px}
+.reqs small{display:block;font-size:12px;font-weight:400;color:var(--muted)}
+.kitf{display:flex;flex-direction:column;gap:10px;padding:16px;border-radius:14px;background:var(--bg);border:1px solid var(--line)}
+.kitf label{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600;color:var(--muted)}
+.kitf input{font:inherit;font-size:14px;font-weight:400;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:9px 11px;min-width:0}
+.kitf input:focus{outline:2px solid var(--accent);outline-offset:0;border-color:transparent}
+.kitf .btn{margin-top:4px}
+.hint{font-size:12px;color:var(--muted)}
 .langs button[aria-pressed="true"]{background:var(--grad);color:#fff}
 .btns{display:flex;flex-wrap:wrap;gap:8px}
 .btn{font:inherit;font-size:14px;font-weight:600;padding:8px 16px;border-radius:8px;border:0;background:var(--grad);color:#fff;cursor:pointer;border-radius:999px}
@@ -243,7 +250,7 @@ header > :nth-child(3){animation-delay:.16s}
   .bar .seqcap{order:3;flex-basis:100%;text-align:start}
   .seqwrap{display:none}
   .seqlist{display:flex}
-  .kit .btn{width:100%}
+  .kitf .btn{width:100%}
   .bpc{display:grid;grid-template-columns:40px minmax(0,1fr);gap:2px 12px;padding:12px}
   .bpc .ic{grid-row:span 2}
   .rgrid{gap:8px}
@@ -267,7 +274,6 @@ header > :nth-child(3){animation-delay:.16s}
 <header>
   <span class="eyebrow">Syed Aakhib · Lead Engineer, Enterprise Integrations</span>
   <h1>Cross-Border Solution Architecture Playbook</h1>
-  <span class="disclaim">Proposed SA solution for a fictional client (Sen Bank) · not a record of past KYC delivery</span>
   <p class="sub">How I take enterprise and BFSI clients from first call to scale, across languages, cultures and time zones.</p>
 </header>
 
@@ -351,14 +357,24 @@ header > :nth-child(3){animation-delay:.16s}
 <section class="reveal">
   <h2>API kit</h2>
   <div class="card kit">
-    <div><b>Postman collection <em class="pill">Template</em></b>
-      <p class="note">A starting template, not a working HyperVerge integration yet. Four requests in HyperKYC SDK terms (appId/appKey, accessToken, workflowId, transactionId): generate an access token, fetch results, replay a sample webhook, and replay it again to test duplicates.</p>
-      <ul class="ph">
-        <li><code>tokenUrl</code><em class="pill">Placeholder</em>access-token endpoint, from HyperVerge docs</li>
-        <li><code>resultsUrl</code><em class="pill">Placeholder</em>results API, from HyperVerge docs</li>
-        <li><code>webhook payload</code><em class="pill">Placeholder</em>sample only; real schema and authenticity check from HyperVerge docs</li>
-      </ul></div>
-    <button class="btn" id="postman" type="button">Download Postman template</button>
+    <div class="kitl">
+      <b>Postman collection <em class="pill">Template</em></b>
+      <p class="note">Four requests in HyperKYC SDK terms. Fill in the URLs from your HyperVerge docs, then download.</p>
+      <ol class="reqs">
+        <li><span class="m">POST</span><span>Generate accessToken <small>server only, never in the app</small></span></li>
+        <li><span class="m">POST</span><span>Fetch results by transactionId <small>for missed webhooks</small></span></li>
+        <li><span class="m">POST</span><span>Replay a sample webhook <small>to your server</small></span></li>
+        <li><span class="m">POST</span><span>Replay it again <small>duplicates must be safe</small></span></li>
+      </ol>
+    </div>
+    <form class="kitf" id="kitform" autocomplete="off">
+      <label>Access-token URL<input name="tokenUrl" type="url" placeholder="From HyperVerge docs"></label>
+      <label>Results URL<input name="resultsUrl" type="url" placeholder="From HyperVerge docs"></label>
+      <label>Your webhook URL<input name="webhookUrl" type="url" placeholder="https://uat.yourbank.example/kyc/webhook"></label>
+      <label>workflowId<input name="workflowId" type="text" value="sen_ekyc_v1"></label>
+      <button class="btn" id="postman" type="submit">Download Postman template</button>
+      <p class="hint">Empty fields stay as Postman variables. The webhook body is a sample; use the schema in your HyperVerge docs.</p>
+    </form>
   </div>
 </section>
 
@@ -489,18 +505,20 @@ document.querySelectorAll(".regs button").forEach(b=>b.onclick=()=>{
   document.querySelector(".demo").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});
 });
 
-const WEBHOOK_BODY=JSON.stringify({transactionId:"SB-000184",workflowId:"sen_ekyc_v1",status:"auto_approved"},null,2);
+const WEBHOOK_BODY='{\n  "transactionId": "{{transactionId}}",\n  "workflowId": "{{workflowId}}",\n  "status": "auto_approved"\n}';
 const webhookItem=(name,test)=>({name,
   event:[{listen:"test",script:{exec:[`pm.test('${test}', () => pm.response.to.have.status(200));`]}}],
   request:{method:"POST",header:[{key:"Content-Type",value:"application/json"}],body:{mode:"raw",raw:WEBHOOK_BODY,options:{raw:{language:"json"}}},url:"{{webhookUrl}}",
     description:"Sample payload only. Use the real webhook schema, and its authenticity check, from your HyperVerge docs."}});
-$("postman").onclick=()=>{
+$("kitform").onsubmit=e=>{
+  e.preventDefault();
+  const f=Object.fromEntries(new FormData($("kitform")).entries()),v=(k,d)=>(f[k]||"").trim()||d;
   const keys=[{key:"appId",value:"{{appId}}"},{key:"appKey",value:"{{appKey}}"}];
   const col={
     info:{name:"Sen Bank eKYC — TEMPLATE (not a working integration)",schema:"https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
       description:"TEMPLATE for a fictional client, not a working HyperVerge integration. Uses HyperKYC SDK terms. Set appId, appKey and the three URLs from your HyperVerge docs first. HyperKycResult status values: auto_approved, auto_declined, needs_review, manually_approved, manually_declined, user_cancelled, error."},
-    variable:[["tokenUrl","<access-token endpoint from HyperVerge docs>"],["resultsUrl","<results endpoint from HyperVerge docs>"],["appId",""],["appKey",""],["workflowId","sen_ekyc_v1"],["transactionId","SB-000184"],
-      ["webhookUrl","https://uat.senbank.example/kyc/webhook"],["accessToken",""]].map(([key,value])=>({key,value})),
+    variable:[["tokenUrl",v("tokenUrl","<access-token endpoint from HyperVerge docs>")],["resultsUrl",v("resultsUrl","<results endpoint from HyperVerge docs>")],["appId",""],["appKey",""],["workflowId",v("workflowId","sen_ekyc_v1")],["transactionId","SB-000184"],
+      ["webhookUrl",v("webhookUrl","https://uat.yourbank.example/kyc/webhook")],["accessToken",""]].map(([key,value])=>({key,value})),
     item:[
       {name:"1. Generate accessToken (server only, never in the app)",
        event:[{listen:"test",script:{exec:["pm.test('200 OK', () => pm.response.to.have.status(200));","const j = pm.response.json();","pm.collectionVariables.set('accessToken', j.accessToken || (j.result && j.result.token) || j.token || '');"]}}],

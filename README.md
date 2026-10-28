@@ -15,7 +15,7 @@ A single-page work sample by Syed Aakhib (Lead Engineer, Enterprise Integrations
 ## What is proposed or a placeholder
 
 - **Client:** Sen Bank is fictional.
-- **Postman kit:** a template, not a working HyperVerge integration. `tokenUrl`, `resultsUrl` and the webhook payload are placeholders to be filled from HyperVerge's docs.
+- **Postman kit:** a template, not a working HyperVerge integration. Fill in the access-token URL, results URL, your webhook URL and workflowId on the page before downloading; anything left blank stays a Postman variable. The webhook payload is a sample, so use the schema in HyperVerge's docs.
 - **Support targets** (30-day hypercare, 3× peak load test, 30-minute P1 response, 48-hour root cause): proposed targets to agree with the client, not measured results.
 - **Verified:** SDK terms and status values come from HyperVerge's public Flutter SDK (`hyperkyc_flutter` on pub.dev).
 - **Translations:** AI-drafted and not yet reviewed by a native speaker.
