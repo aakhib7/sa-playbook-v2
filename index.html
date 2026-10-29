@@ -222,7 +222,7 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .fb code{font-family:var(--f-mono);font-size:12px;color:var(--ink);background:var(--accent-soft);padding:0 5px;border-radius:4px;align-self:flex-start;display:inline}
 .fb p:first-of-type{flex-direction:row;flex-wrap:wrap;align-items:center;gap:2px 6px}
 .fb p:first-of-type i{flex-basis:100%}
-@media print{.fb,.donew{break-inside:avoid}}
+@media print{.fb,.donew{break-inside:avoid}#fallbacks{break-before:page}}
 
 /* delivery plan and go-live checklist */
 .gantt{display:flex;flex-direction:column;gap:0;overflow-x:auto;padding:14px 18px}
@@ -657,7 +657,7 @@ h1{font-size:clamp(28px,3.6vw,40px)}
         <li><span class="m">POST</span><span>Generate accessToken <small>server only, never in the app</small></span></li>
         <li><span class="m">POST</span><span>Fetch results by transactionId <small>for missed webhooks</small></span></li>
         <li><span class="m">POST</span><span>Replay a sample webhook <small>to your server</small></span></li>
-        <li><span class="m">POST</span><span>Replay it again <small>duplicates must be safe</small></span></li>
+        <li><span class="m">POST</span><span>Replay it again <small>repeat events deduplicated, later status changes still apply</small></span></li>
       </ol>
     </div>
     <div class="kitd">
@@ -672,9 +672,9 @@ h1{font-size:clamp(28px,3.6vw,40px)}
   <p class="note">What breaks in production, how we spot it, and what the customer sees instead.</p>
   <div class="fbgrid">
     <div class="fb"><b>Liveness or face match fails</b><p><i>Detect</i><code>auto_declined</code> or <code>needs_review</code></p><p><i>Fallback</i>Guided retry, then manual review or video KYC.</p></div>
-    <div class="fb"><b>Network drops mid-capture</b><p><i>Detect</i><code>error</code> or <code>user_cancelled</code> from the SDK</p><p><i>Fallback</i>Resume with the same transactionId, never a new application.</p></div>
+    <div class="fb"><b>Network drops mid-capture</b><p><i>Detect</i><code>error</code> or <code>user_cancelled</code> from the SDK</p><p><i>Fallback</i>Check the existing application first; resume if supported, otherwise create a linked retry under the documented SDK rules.</p></div>
     <div class="fb"><b>Webhook never arrives</b><p><i>Detect</i>No callback within the agreed window</p><p><i>Fallback</i>Poll the results API by transactionId and alert if the gap persists.</p></div>
-    <div class="fb"><b>Same webhook arrives twice</b><p><i>Detect</i>transactionId already processed</p><p><i>Fallback</i>Idempotent handler: process once, still return 200.</p></div>
+    <div class="fb"><b>Repeated or out-of-order webhooks</b><p><i>Detect</i>Same event received again, or an older status after a newer one</p><p><i>Fallback</i>Deduplicate repeated events, not the whole application. Allow valid status changes for the same transactionId and reconcile late or out-of-order updates with server-side results, following the vendor's documented contract.</p></div>
     <div class="fb"><b>API slow or unavailable</b><p><i>Detect</i>p95 latency or error-rate alert</p><p><i>Fallback</i>Retry with backoff, a clear "try again later" screen, escalate as P1.</p></div>
     <div class="fb"><b>Camera fails on a low-end phone</b><p><i>Detect</i>SDK errorCode on camera start</p><p><i>Fallback</i>Plain-language help, then the web flow or assisted onboarding at a branch.</p></div>
   </div>
@@ -709,10 +709,10 @@ h1{font-size:clamp(28px,3.6vw,40px)}
     <div class="card">
       <h3>Data residency decision</h3>
       <div class="opts">
-        <div><b>In-country cloud</b><span>Faster upgrades and new models, shared operations. Fits most data-localisation rules.</span></div>
+        <div><b>In-country cloud</b><span>Faster upgrades and new models, shared operations. In-country hosting alone does not establish compliance.</span></div>
         <div><b>On-premise</b><span>Full control for the bank. Slower upgrades, and the bank runs the infrastructure.</span></div>
       </div>
-      <p class="note">Chosen by the regulator's rules and the bank's policy, then recorded in the decision log.</p>
+      <p class="note">Either way, validate storage, processing, backups, support access and subprocessors against local rules and the bank's policy, then record the decision in the decision log.</p>
     </div>
   </div>
 </section>
@@ -725,12 +725,12 @@ h1{font-size:clamp(28px,3.6vw,40px)}
       <li><label><input type="checkbox"><span>Production appId / appKey live on the server only; UAT keys removed from app builds</span></label></li>
       <li><label><input type="checkbox"><span>accessToken generated server-side; nothing secret ships in the app</span></label></li>
       <li><label><input type="checkbox"><span>Webhook endpoint live, authenticity check on, and it answers 200 quickly</span></label></li>
-      <li><label><input type="checkbox"><span>Duplicate and late webhooks tested; the results API fallback works</span></label></li>
+      <li><label><input type="checkbox"><span>Repeated and out-of-order webhooks tested; later status changes still apply; results API reconciliation works</span></label></li>
       <li><label><input type="checkbox"><span>Approval decided from the server-side result, never the HyperKycResult status</span></label></li>
       <li><label><input type="checkbox"><span>Workflow tested on low-end Android, iOS and web, on slow networks</span></label></li>
       <li><label><input type="checkbox"><span>Every local ID card version passes in UAT</span></label></li>
       <li><label><input type="checkbox"><span>Consent screen approved by the bank's legal team, in the local language</span></label></li>
-      <li><label><input type="checkbox"><span>Data residency and retention configured exactly as signed off</span></label></li>
+      <li><label><input type="checkbox"><span>Storage, processing, backups, support access and subprocessors validated; retention configured as signed off</span></label></li>
       <li><label><input type="checkbox"><span>Dashboards, alerts and the escalation contact list ready; hypercare starts</span></label></li>
     </ol>
   </div>
@@ -742,7 +742,7 @@ h1{font-size:clamp(28px,3.6vw,40px)}
   <div class="bpgrid">
     <div class="bpc"><span class="ic">🔑</span><b>Keys stay on the server</b><p>Generate the accessToken server-side. The SDK's own README calls appId/appKey in the app “less secure”.</p></div>
     <div class="bpc"><span class="ic">🔒</span><b>Decide on the server, never the app</b><p>Approve from the webhook or results API. The HyperKycResult status is for the screen.</p></div>
-    <div class="bpc"><span class="ic">♻️</span><b>Make webhooks idempotent</b><p>The same event can arrive twice. Process it once, by transaction ID.</p></div>
+    <div class="bpc"><span class="ic">♻️</span><b>Deduplicate events, not applications</b><p>Drop repeated events, but allow valid status changes for the same transactionId, such as a manual approval after review.</p></div>
     <div class="bpc"><span class="ic">📶</span><b>Test in real conditions</b><p>Low-end Android, weak networks, low light, every local ID card version.</p></div>
   </div>
   <span class="lbl">Communication</span>
@@ -750,7 +750,7 @@ h1{font-size:clamp(28px,3.6vw,40px)}
     <div class="bpc"><span class="ic">✍️</span><b>Write it down, in both languages</b><p>Every call ends with a recap: who does what, by when.</p></div>
     <div class="bpc"><span class="ic">📖</span><b>One glossary, everywhere</b><p>Lock terms before translating. A native-speaking partner reviews.</p></div>
     <div class="bpc"><span class="ic">🕘</span><b>Meet in the overlap</b><p>Short calls in shared hours to screen-share and debug. Everything else async.</p></div>
-    <div class="bpc"><span class="ic">🗂️</span><b>Data stays where the law says</b><p>In-country region, a reference ID instead of images, agreed retention.</p></div>
+    <div class="bpc"><span class="ic">🗂️</span><b>Localisation is more than hosting</b><p>Validate storage, processing, backups, support access and subprocessors against local rules and the bank's policy.</p></div>
   </div>
 </section>
 
@@ -887,7 +887,7 @@ $("postman").onclick=()=>{
       {name:"2. Fetch results by transactionId (for missed webhooks)",request:{method:"POST",header:[...keys,{key:"Content-Type",value:"application/json"}],
         body:{mode:"raw",raw:'{\n  "transactionId": "{{transactionId}}"\n}',options:{raw:{language:"json"}}},url:"{{resultsUrl}}",description:"Placeholder; use the results API from your HyperVerge docs."}},
       webhookItem("3. Replay a sample webhook to your server","Your server returns 200"),
-      webhookItem("4. Replay the same webhook again (must be idempotent)","Duplicate is accepted, not processed twice")
+      webhookItem("4. Replay the same webhook event again (deduplicate the event, not the application)","Repeated event is accepted once; a later valid status change for the same transactionId still applies")
     ]};
   const a=document.createElement("a");
   a.href=URL.createObjectURL(new Blob([JSON.stringify(col,null,2)],{type:"application/json"}));
