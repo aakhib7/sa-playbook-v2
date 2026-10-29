@@ -10,11 +10,11 @@ A single-page work sample by Syed Aakhib. It is a **proposed Solutions Architect
 - **Delivery flow:** seven steps from discovery to post-go-live, each with the common problem, the proposed fix and a "done when" line.
 - **Delivery plan:** a proposed 10-week timeline with who leads and who supports each phase.
 - **Discovery & POC:** eight discovery questions and a proposed POC plan with success criteria.
+- **Solution blueprint (live demo):** a seven-step KYC message-flow diagram in seven languages (English, Vietnamese, Bahasa Indonesia, Japanese, Arabic with right-to-left layout, Portuguese and French).
+- **API kit:** the four requests, plus a sample Postman file to download, using HyperKYC SDK terms.
+- **Failure handling:** six common production failures, how to detect each, and the fallback.
 - **Security & data:** a proposed data map, the security review pack, and the cloud vs on-premise residency choice.
 - **Go-live checklist:** ten checks to tick before launch.
-- **Failure handling:** six common production failures, how to detect each, and the fallback.
-- **Live demo:** a seven-step KYC message-flow diagram in seven languages (English, Vietnamese, Bahasa Indonesia, Japanese, Arabic with right-to-left layout, Portuguese and French).
-- **API kit:** the four requests, plus a sample Postman file to download, using HyperKYC SDK terms.
 - **Key best practices:** for integration and for communication.
 - **Regions:** language and time difference from Bangalore for each market.
 

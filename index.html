@@ -64,6 +64,7 @@ section{display:flex;flex-direction:column;gap:16px}
 /* role summary */
 .phases{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;font-size:15px;font-weight:600}
 .phases span{padding:6px 14px;border-radius:99px;background:var(--accent-soft);color:var(--accent)}
+.phases span small{font-size:11px;font-weight:600;opacity:.65;margin-left:2px}
 .phases i{font-style:normal;color:var(--muted)}
 .phases em{font-style:normal;margin-left:6px;font-size:17px;font-weight:700;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .role{gap:14px;animation:rise .7s cubic-bezier(.2,.7,.2,1) .24s both}
@@ -480,11 +481,11 @@ h1{font-size:clamp(28px,3.6vw,40px)}
     <li><a href="#flow">Delivery flow</a></li>
     <li><a href="#plan">Delivery plan</a></li>
     <li><a href="#poc">Discovery &amp; POC</a></li>
+    <li><a href="#demo">Solution blueprint</a></li>
+    <li><a href="#api">API kit</a></li>
+    <li><a href="#fallbacks">Failure handling</a></li>
     <li><a href="#security">Security &amp; data</a></li>
     <li><a href="#golive">Go-live checklist</a></li>
-    <li><a href="#fallbacks">Failure handling</a></li>
-    <li><a href="#demo">Live demo</a></li>
-    <li><a href="#api">API kit</a></li>
     <li><a href="#practices">Best practices</a></li>
     <li class="tregions"><a href="#regions">Regions</a></li>
   </ol>
@@ -512,7 +513,8 @@ h1{font-size:clamp(28px,3.6vw,40px)}
 </header>
 
 <section class="role" id="role">
-  <p class="phases"><span>Discover</span><i>→</i><span>Design</span><i>→</i><span>Integrate</span><i>→</i><span>Launch</span><i>→</i><span>Optimize</span><em>One architect, one solution, end to end.</em></p>
+  <h2>Role at a glance</h2>
+  <p class="phases"><span>Discover <small>1–2</small></span><i>→</i><span>Design <small>3</small></span><i>→</i><span>Integrate <small>4–5</small></span><i>→</i><span>Launch <small>6</small></span><i>→</i><span>Optimize <small>7</small></span><em>One architect, one solution, end to end.</em></p>
   <div class="rgrid">
     <div class="rc"><span class="ic">🧭</span><b>Solution architecture &amp; integration</b><p>End-to-end solutions and workflows, from discovery to post-go-live.</p></div>
     <div class="rc"><span class="ic">💬</span><b>Pre-sales &amp; technical discovery</b><p>Discovery sessions, product deep-dives, security queries and POCs with Sales.</p></div>
@@ -539,7 +541,7 @@ h1{font-size:clamp(28px,3.6vw,40px)}
     <li class="step" id="step-3"><div class="rail"><span class="dot">3</span><span class="line"></span></div>
       <div class="body"><h3><span class="emo" aria-hidden="true">🗺️</span>Solution design: a visual blueprint<span class="tag">Visual integration blueprints</span></h3>
         <div class="pf"><div class="p"><b>✕</b><span>Long English documents nobody finishes reading.</span></div>
-        <div class="f"><b>✓</b><span>Diagrams and code first, short sentences second. See the live demo below.</span></div></div>
+        <div class="f"><b>✓</b><span>Diagrams and code first, short sentences second. See the solution blueprint below.</span></div></div>
         <p class="donew"><span aria-hidden="true">🏁</span><b>Done when:</b> The client's tech lead approves the blueprint and the data flow.</p></div></li>
     <li class="step" id="step-4"><div class="rail"><span class="dot">4</span><span class="line"></span></div>
       <div class="body"><h3><span class="emo" aria-hidden="true">🔌</span>Integration: an API kit that runs<span class="tag">Standardized API docs · Postman</span></h3>
@@ -547,12 +549,12 @@ h1{font-size:clamp(28px,3.6vw,40px)}
         <div class="f"><b>✓</b><span>A shared Postman template, filled with the real endpoints during integration. Engineers test instead of reading.</span></div></div>
         <p class="donew"><span aria-hidden="true">🏁</span><b>Done when:</b> Every Postman request passes in UAT, and duplicate webhooks are handled safely.</p></div></li>
     <li class="step" id="step-5"><div class="rail"><span class="dot">5</span><span class="line"></span></div>
-      <div class="body"><h3><span class="emo" aria-hidden="true">🔄</span>Delivery cadence: async first, live in the overlap<span class="tag">Async loops · time zone friction · high-context cultures</span></h3>
+      <div class="body"><h3><span class="emo" aria-hidden="true">🔄</span>Delivery cadence: async first, live in the overlap<span class="tag">Runs through every step · W1–W10</span><span class="tag">Async loops · time zone friction · high-context cultures</span></h3>
         <div class="pf"><div class="p"><b>✕</b><span>One question takes three days of email. Blockers are never said in the group call.</span></div>
         <div class="f"><b>✓</b><span>Short calls in shared hours, a written recap in both languages, and a 1:1 with the tech lead.</span></div></div>
         <p class="donew"><span aria-hidden="true">🏁</span><b>Done when:</b> Every open question has an owner and a date in the shared log.</p></div></li>
     <li class="step" id="step-6"><div class="rail"><span class="dot">6</span><span class="line"></span></div>
-      <div class="body"><h3><span class="emo" aria-hidden="true">🛡️</span>Security, compliance and go-live<span class="tag">Local data privacy mandates</span></h3>
+      <div class="body"><h3><span class="emo" aria-hidden="true">🛡️</span>Security sign-off &amp; go-live<span class="tag">Review starts W3</span><span class="tag">Local data privacy mandates</span></h3>
         <div class="pf"><div class="p"><b>✕</b><span>Go-live stalls while security asks where the selfies are stored.</span></div>
         <div class="f"><b>✓</b><span>Bring a data map, the local rules and the security documents to the first security call.</span></div></div>
         <p class="donew"><span aria-hidden="true">🏁</span><b>Done when:</b> Security sign-off is in and the <a href="#golive">go-live checklist</a> is complete.</p></div></li>
@@ -620,6 +622,64 @@ h1{font-size:clamp(28px,3.6vw,40px)}
   </div>
 </section>
 
+<section class="reveal" id="demo">
+  <h2>Solution blueprint (live demo), in their language<span class="live">Interactive</span></h2>
+  <div class="card demo">
+    <div class="langcol">
+      <span class="lbl">Languages</span>
+      <div class="langs" role="group" aria-label="Language">
+        <button type="button" data-l="en"><span>English</span></button>
+        <button type="button" data-l="vi"><span>Tiếng Việt</span><small>Vietnamese</small></button>
+        <button type="button" data-l="id"><span>Bahasa Indonesia</span><small>Indonesian</small></button>
+        <button type="button" data-l="ja"><span>日本語</span><small>Japanese</small></button>
+        <button type="button" data-l="ar"><span>العربية</span><small>Arabic</small></button>
+        <button type="button" data-l="pt"><span>Português (BR)</span><small>Portuguese</small></button>
+        <button type="button" data-l="fr"><span>Français</span><small>French</small></button>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="bar"><span class="lbl">Message flow</span><span class="seqcap" id="seqcap" aria-live="polite"></span><button class="btn" id="play" type="button">▶ Play</button></div>
+      <div class="seqwrap"><svg class="seq" id="seq" viewBox="0 0 800 452" role="img" aria-label="KYC message flow"></svg></div>
+      <ol class="seqlist" id="seqlist" aria-label="KYC message flow"></ol>
+      <div class="track" id="track" role="group" aria-label="Jump to step"></div>
+      <div class="legend"><span>👁 Display only, never used to approve</span><span>🔒 Server-to-server: the only result the bank decides on</span><span>Arabic mirrors right-to-left</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="reveal" id="api">
+  <h2>API kit</h2>
+  <div class="card kit">
+    <div class="kitl">
+      <b>Postman collection <em class="pill">Sample</em></b>
+      <p class="note">Four requests in HyperKYC SDK terms: appId/appKey, accessToken, workflowId and transactionId.</p>
+      <ol class="reqs">
+        <li><span class="m">POST</span><span>Generate accessToken <small>server only, never in the app</small></span></li>
+        <li><span class="m">POST</span><span>Fetch results by transactionId <small>for missed webhooks</small></span></li>
+        <li><span class="m">POST</span><span>Replay a sample webhook <small>to your server</small></span></li>
+        <li><span class="m">POST</span><span>Replay it again <small>duplicates must be safe</small></span></li>
+      </ol>
+    </div>
+    <div class="kitd">
+      <button class="btn" id="postman" type="button">⬇ Download sample Postman file</button>
+      <p class="hint">A sample collection to import into Postman. Endpoint URLs and the webhook body are placeholders to replace from your HyperVerge docs.</p>
+    </div>
+  </div>
+</section>
+
+<section class="reveal" id="fallbacks">
+  <h2>Failure handling</h2>
+  <p class="note">What breaks in production, how we spot it, and what the customer sees instead.</p>
+  <div class="fbgrid">
+    <div class="fb"><b>Liveness or face match fails</b><p><i>Detect</i><code>auto_declined</code> or <code>needs_review</code></p><p><i>Fallback</i>Guided retry, then manual review or video KYC.</p></div>
+    <div class="fb"><b>Network drops mid-capture</b><p><i>Detect</i><code>error</code> or <code>user_cancelled</code> from the SDK</p><p><i>Fallback</i>Resume with the same transactionId, never a new application.</p></div>
+    <div class="fb"><b>Webhook never arrives</b><p><i>Detect</i>No callback within the agreed window</p><p><i>Fallback</i>Poll the results API by transactionId and alert if the gap persists.</p></div>
+    <div class="fb"><b>Same webhook arrives twice</b><p><i>Detect</i>transactionId already processed</p><p><i>Fallback</i>Idempotent handler: process once, still return 200.</p></div>
+    <div class="fb"><b>API slow or unavailable</b><p><i>Detect</i>p95 latency or error-rate alert</p><p><i>Fallback</i>Retry with backoff, a clear "try again later" screen, escalate as P1.</p></div>
+    <div class="fb"><b>Camera fails on a low-end phone</b><p><i>Detect</i>SDK errorCode on camera start</p><p><i>Fallback</i>Plain-language help, then the web flow or assisted onboarding at a branch.</p></div>
+  </div>
+</section>
+
 <section class="reveal" id="security">
   <h2>Security &amp; data</h2>
   <div class="card tw">
@@ -673,64 +733,6 @@ h1{font-size:clamp(28px,3.6vw,40px)}
       <li><label><input type="checkbox"><span>Data residency and retention configured exactly as signed off</span></label></li>
       <li><label><input type="checkbox"><span>Dashboards, alerts and the escalation contact list ready; hypercare starts</span></label></li>
     </ol>
-  </div>
-</section>
-
-<section class="reveal" id="fallbacks">
-  <h2>Failure handling</h2>
-  <p class="note">What breaks in production, how we spot it, and what the customer sees instead.</p>
-  <div class="fbgrid">
-    <div class="fb"><b>Liveness or face match fails</b><p><i>Detect</i><code>auto_declined</code> or <code>needs_review</code></p><p><i>Fallback</i>Guided retry, then manual review or video KYC.</p></div>
-    <div class="fb"><b>Network drops mid-capture</b><p><i>Detect</i><code>error</code> or <code>user_cancelled</code> from the SDK</p><p><i>Fallback</i>Resume with the same transactionId, never a new application.</p></div>
-    <div class="fb"><b>Webhook never arrives</b><p><i>Detect</i>No callback within the agreed window</p><p><i>Fallback</i>Poll the results API by transactionId and alert if the gap persists.</p></div>
-    <div class="fb"><b>Same webhook arrives twice</b><p><i>Detect</i>transactionId already processed</p><p><i>Fallback</i>Idempotent handler: process once, still return 200.</p></div>
-    <div class="fb"><b>API slow or unavailable</b><p><i>Detect</i>p95 latency or error-rate alert</p><p><i>Fallback</i>Retry with backoff, a clear "try again later" screen, escalate as P1.</p></div>
-    <div class="fb"><b>Camera fails on a low-end phone</b><p><i>Detect</i>SDK errorCode on camera start</p><p><i>Fallback</i>Plain-language help, then the web flow or assisted onboarding at a branch.</p></div>
-  </div>
-</section>
-
-<section class="reveal" id="demo">
-  <h2>Live demo: the blueprint, in their language<span class="live">Interactive</span></h2>
-  <div class="card demo">
-    <div class="langcol">
-      <span class="lbl">Languages</span>
-      <div class="langs" role="group" aria-label="Language">
-        <button type="button" data-l="en"><span>English</span></button>
-        <button type="button" data-l="vi"><span>Tiếng Việt</span><small>Vietnamese</small></button>
-        <button type="button" data-l="id"><span>Bahasa Indonesia</span><small>Indonesian</small></button>
-        <button type="button" data-l="ja"><span>日本語</span><small>Japanese</small></button>
-        <button type="button" data-l="ar"><span>العربية</span><small>Arabic</small></button>
-        <button type="button" data-l="pt"><span>Português (BR)</span><small>Portuguese</small></button>
-        <button type="button" data-l="fr"><span>Français</span><small>French</small></button>
-      </div>
-    </div>
-    <div class="stage">
-      <div class="bar"><span class="lbl">Message flow</span><span class="seqcap" id="seqcap" aria-live="polite"></span><button class="btn" id="play" type="button">▶ Play</button></div>
-      <div class="seqwrap"><svg class="seq" id="seq" viewBox="0 0 800 452" role="img" aria-label="KYC message flow"></svg></div>
-      <ol class="seqlist" id="seqlist" aria-label="KYC message flow"></ol>
-      <div class="track" id="track" role="group" aria-label="Jump to step"></div>
-      <div class="legend"><span>👁 Display only, never used to approve</span><span>🔒 Server-to-server: the only result the bank decides on</span><span>Arabic mirrors right-to-left</span></div>
-    </div>
-  </div>
-</section>
-
-<section class="reveal" id="api">
-  <h2>API kit</h2>
-  <div class="card kit">
-    <div class="kitl">
-      <b>Postman collection <em class="pill">Sample</em></b>
-      <p class="note">Four requests in HyperKYC SDK terms: appId/appKey, accessToken, workflowId and transactionId.</p>
-      <ol class="reqs">
-        <li><span class="m">POST</span><span>Generate accessToken <small>server only, never in the app</small></span></li>
-        <li><span class="m">POST</span><span>Fetch results by transactionId <small>for missed webhooks</small></span></li>
-        <li><span class="m">POST</span><span>Replay a sample webhook <small>to your server</small></span></li>
-        <li><span class="m">POST</span><span>Replay it again <small>duplicates must be safe</small></span></li>
-      </ol>
-    </div>
-    <div class="kitd">
-      <button class="btn" id="postman" type="button">⬇ Download sample Postman file</button>
-      <p class="hint">A sample collection to import into Postman. Endpoint URLs and the webhook body are placeholders to replace from your HyperVerge docs.</p>
-    </div>
   </div>
 </section>
 
